@@ -17,17 +17,17 @@ public abstract class ProveedorDeArticulos {
         listaADevolver.add(new Articulo("Juego de adornos de navidad", "$1.000", R.drawable.adornosnavidenos));
         listaADevolver.add(new Articulo("Lampara", "$2.500", R.drawable.lampara));
         listaADevolver.add(new Articulo("Taladro", "$3.800", R.drawable.taladro));
-        listaADevolver.add(new Articulo("Reproductor de vinilos", "5.600", R.drawable.tocadiscos));
+        listaADevolver.add(new Articulo("Reproductor de vinilos", "$5.600", R.drawable.tocadiscos));
         listaADevolver.add(new Articulo("Juego de vajilla", "$3.200", R.drawable.vajilla));
         listaADevolver.add(new Articulo("Juego de adornos de navidad", "$1.000", R.drawable.adornosnavidenos));
         listaADevolver.add(new Articulo("Lampara", "$2.500", R.drawable.lampara));
         listaADevolver.add(new Articulo("Taladro", "$3.800", R.drawable.taladro));
-        listaADevolver.add(new Articulo("Reproductor de vinilos", "5.600", R.drawable.tocadiscos));
+        listaADevolver.add(new Articulo("Reproductor de vinilos", "$5.600", R.drawable.tocadiscos));
         listaADevolver.add(new Articulo("Juego de vajilla", "$3.200", R.drawable.vajilla));
         listaADevolver.add(new Articulo("Juego de adornos de navidad", "$1.000", R.drawable.adornosnavidenos));
         listaADevolver.add(new Articulo("Lampara", "$2.500", R.drawable.lampara));
         listaADevolver.add(new Articulo("Taladro", "$3.800", R.drawable.taladro));
-        listaADevolver.add(new Articulo("Reproductor de vinilos", "5.600", R.drawable.tocadiscos));
+        listaADevolver.add(new Articulo("Reproductor de vinilos", "$5.600", R.drawable.tocadiscos));
         listaADevolver.add(new Articulo("Juego de vajilla", "$3.200", R.drawable.vajilla));
 
         return listaADevolver;
