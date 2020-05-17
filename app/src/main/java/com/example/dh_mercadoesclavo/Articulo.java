@@ -1,16 +1,20 @@
 package com.example.dh_mercadoesclavo;
 
+import java.io.Serializable;
+
 //POJO - objeto a representar
-public class Articulo {
+public class Articulo implements Serializable {
 
     private String nombre;
     private String precio;
     private Integer imagen;
+    private String descripcion;
 
-    public Articulo(String nombre, String precio, Integer imagen) {
+    public Articulo(String nombre, String precio, Integer imagen, String descripcion) {
         this.nombre = nombre;
         this.precio = precio;
         this.imagen = imagen;
+        this.descripcion = descripcion;
     }
 
     public String getNombre() {
@@ -35,5 +39,13 @@ public class Articulo {
 
     public void setImagen(Integer imagen) {
         this.imagen = imagen;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

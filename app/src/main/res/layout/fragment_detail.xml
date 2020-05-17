@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailFragment">
+
+    <ImageView
+        android:id="@+id/fragmentDetailImageView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/fragmentDetailTextViewNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Nombre Articulo"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fragmentDetailTextViewPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="precio del articulo"
+        android:textColor="#4CAF50"
+        android:textSize="28dp" />
+
+    <TextView
+        android:id="@+id/fragmentDetailTextViewDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="descricion del articulo, es un poco mas larga, pongo este texto asi veo las dimensiones"
+        android:textSize="25dp"
+        android:layout_marginTop="20dp"/>
+
+
+</LinearLayout>
+

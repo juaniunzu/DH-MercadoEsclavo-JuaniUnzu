@@ -17,9 +17,11 @@ import java.util.List;
 public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.ArticuloViewHolder> {
 
     private List<Articulo> listaArticulos;
+    private ArticuloAdapterListener articuloAdapterListener;
 
-    public ArticuloAdapter(List<Articulo> listaArticulos) {
+    public ArticuloAdapter(List<Articulo> listaArticulos, ArticuloAdapterListener listener) {
         this.listaArticulos = listaArticulos;
+        this.articuloAdapterListener = listener;
     }
 
     @NonNull
@@ -71,6 +73,15 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
             celdaArticuloTextViewNombre = itemView.findViewById(R.id.celdaArticuloTextViewNombre);
             celdaArticuloTextViewPrecio = itemView.findViewById(R.id.celdaArticuloTextViewPrecio);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Articulo articulo = listaArticulos.get(getAdapterPosition());
+
+                    articuloAdapterListener.onClickArticulo(articulo);
+                }
+            });
+
         }
 
         //este metodo se llama arriba en el onBindViewHolder, metodo que le da los datos del articulo a la celda.
@@ -82,6 +93,10 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
             celdaArticuloTextViewPrecio.setText(unArticulo.getPrecio());
 
         }
+    }
+
+    public interface ArticuloAdapterListener {
+        void onClickArticulo(Articulo unArticulo);
     }
 
 }

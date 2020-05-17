@@ -1,7 +1,9 @@
 package com.example.dh_mercadoesclavo;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,12 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticuloFragment extends Fragment {
+public class ArticuloFragment extends Fragment implements ArticuloAdapter.ArticuloAdapterListener {
+
+    private ArticuloFragmentListener articuloFragmentListener;
+
 
     public ArticuloFragment() {
         // Required empty public constructor
@@ -37,7 +43,7 @@ public class ArticuloFragment extends Fragment {
         //creo lista que sera parametro en la construccion del adapter
         List<Articulo> listaDeArticulos = ProveedorDeArticulos.getArticulos();
         //creo adapter
-        ArticuloAdapter articuloAdapter = new ArticuloAdapter(listaDeArticulos);
+        ArticuloAdapter articuloAdapter = new ArticuloAdapter(listaDeArticulos, this);
         //creo layout manager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
 
@@ -46,5 +52,20 @@ public class ArticuloFragment extends Fragment {
         fragmentArticuloRecyclerView.setAdapter(articuloAdapter);
         
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.articuloFragmentListener = (ArticuloFragmentListener) context;
+    }
+
+    @Override
+    public void onClickArticulo(Articulo unArticulo) {
+        this.articuloFragmentListener.onClickArticuloFragment(unArticulo);
+    }
+
+    public interface ArticuloFragmentListener {
+        void onClickArticuloFragment(Articulo unArticulo);
     }
 }

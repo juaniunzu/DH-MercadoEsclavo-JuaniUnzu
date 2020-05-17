@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ArticuloFragment.ArticuloFragmentListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,16 @@ public class MainActivity extends AppCompatActivity {
     private void pegarFragment(Fragment unFragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.activityMainFragmentContainer, unFragment);
+        fragmentTransaction.replace(R.id.activityMainFragmentContainer, unFragment).addToBackStack("add");
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onClickArticuloFragment(Articulo unArticulo) {
+        Bundle mainADetalle = new Bundle();
+        mainADetalle.putSerializable("articulo", unArticulo);
+        DetailFragment fragment = new DetailFragment();
+        fragment.setArguments(mainADetalle);
+        pegarFragment(fragment);
+    }
 }
