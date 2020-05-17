@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextAppearance.MdcTypographyStyles.Headline4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bienvenido!" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Visto recientemente"
+                    style="@style/TextAppearance.MdcTypographyStyles.Headline5"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fragmentHomeRecyclerViewRecientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/fragmentHomeCardViewRecientesTextViewVerMas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ver historial de busqueda" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recomendados"
+                    style="@style/TextAppearance.MdcTypographyStyles.Headline5"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fragmentHomeRecyclerViewRecomendados"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/fragmentHomeCardViewRecomendadosTextViewVerMas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ver mas" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ofertas"
+                    style="@style/TextAppearance.MdcTypographyStyles.Headline5"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fragmentHomeRecyclerViewOfertas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/fragmentHomeCardViewOfertasTextViewVerMas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ver mas" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

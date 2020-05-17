@@ -9,6 +9,7 @@ public class Articulo implements Serializable {
     private String precio;
     private Integer imagen;
     private String descripcion;
+    private Boolean disponibleParaEnvios;
 
     public Articulo(String nombre, String precio, Integer imagen, String descripcion) {
         this.nombre = nombre;
@@ -21,6 +22,14 @@ public class Articulo implements Serializable {
         this.nombre = nombre;
         this.precio = precio;
         this.imagen = imagen;
+    }
+
+    public Articulo(String nombre, String precio, Integer imagen, String descripcion, Boolean disponibleParaEnvios) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.imagen = imagen;
+        this.descripcion = descripcion;
+        this.disponibleParaEnvios = disponibleParaEnvios;
     }
 
     public String getNombre() {
@@ -53,5 +62,15 @@ public class Articulo implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String disponibleParaEnviar(){
+        if(this.disponibleParaEnvios == null){
+            return "Consultar por envio";
+        } else if (this.disponibleParaEnvios){
+            return "Disponible para enviar";
+        } else {
+            return "No disponible para enviar";
+        }
     }
 }
