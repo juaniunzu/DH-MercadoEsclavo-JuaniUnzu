@@ -17,6 +17,12 @@ public class Articulo implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Articulo(String nombre, String precio, Integer imagen) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.imagen = imagen;
+    }
+
     public String getNombre() {
         return nombre;
     }

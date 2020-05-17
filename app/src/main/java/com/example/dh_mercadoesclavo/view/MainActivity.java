@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity implements ArticuloFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        activityMainDrawerLayout = findViewById(R.id.activityMainDrawerLayout);
-        activityMainNavigationView = findViewById(R.id.activityMainNavigationView);
+        findViewsById();
 
         activityMainNavigationView.setNavigationItemSelectedListener(this);
 
@@ -39,7 +38,18 @@ public class MainActivity extends AppCompatActivity implements ArticuloFragment.
 
     }
 
-    //metodo que pega fragment en el main
+    /**
+     * metodo que linkea los atributos del main con los elementos xml correspondientes
+     */
+    private void findViewsById() {
+        activityMainDrawerLayout = findViewById(R.id.activityMainDrawerLayout);
+        activityMainNavigationView = findViewById(R.id.activityMainNavigationView);
+    }
+
+    /**
+     * metodo que pega fragments en el main activity. Se le debe pasar como parametro el fragment deseado.
+     * @param unFragment
+     */
     private void pegarFragment(Fragment unFragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();

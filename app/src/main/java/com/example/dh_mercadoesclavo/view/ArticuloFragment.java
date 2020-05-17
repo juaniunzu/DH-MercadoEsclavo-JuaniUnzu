@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,10 +49,10 @@ public class ArticuloFragment extends Fragment implements ArticuloAdapter.Articu
         //creo adapter
         ArticuloAdapter articuloAdapter = new ArticuloAdapter(listaDeArticulos, this);
         //creo layout manager
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, RecyclerView.VERTICAL, false);
 
         //seteo adapter y layout manager al recyclerView
-        fragmentArticuloRecyclerView.setLayoutManager(linearLayoutManager);
+        fragmentArticuloRecyclerView.setLayoutManager(gridLayoutManager);
         fragmentArticuloRecyclerView.setAdapter(articuloAdapter);
         
         return view;
