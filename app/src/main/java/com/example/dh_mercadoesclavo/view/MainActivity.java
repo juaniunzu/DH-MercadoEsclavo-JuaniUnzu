@@ -16,7 +16,7 @@ import com.example.dh_mercadoesclavo.view.ArticuloFragment;
 import com.example.dh_mercadoesclavo.view.DetailFragment;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements ArticuloFragment.ArticuloFragmentListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements ArticuloAdapter2.Articulo2AdapterListener, HomeFragment.ArticuloHomeFragmentListener, ArticuloFragment.ArticuloFragmentListener, NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout activityMainDrawerLayout;
     private NavigationView activityMainNavigationView;
@@ -31,10 +31,8 @@ public class MainActivity extends AppCompatActivity implements ArticuloFragment.
 
         activityMainNavigationView.setNavigationItemSelectedListener(this);
 
-
-        //creo fragment y lo pego en el main
-        ArticuloFragment articuloFragment = new ArticuloFragment();
-        pegarFragment(articuloFragment);
+        HomeFragment fragment = new HomeFragment();
+        pegarFragment(fragment);
 
     }
 
@@ -76,5 +74,27 @@ public class MainActivity extends AppCompatActivity implements ArticuloFragment.
                 break;
         }
         return false;
+    }
+
+    @Override
+    public void onClickArticuloFragmentHome(Articulo unArticulo) {
+
+        Bundle mainADetalle = new Bundle();
+        mainADetalle.putSerializable("articulo", unArticulo);
+        DetailFragment fragment = new DetailFragment();
+        fragment.setArguments(mainADetalle);
+        pegarFragment(fragment);
+
+    }
+
+    @Override
+    public void onClickAdapter2(Articulo unArticulo) {
+
+        Bundle mainADetalle = new Bundle();
+        mainADetalle.putSerializable("articulo", unArticulo);
+        DetailFragment fragment = new DetailFragment();
+        fragment.setArguments(mainADetalle);
+        pegarFragment(fragment);
+
     }
 }
