@@ -1,4 +1,4 @@
-package com.example.dh_mercadoesclavo;
+package com.example.dh_mercadoesclavo.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,6 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+
+import com.example.dh_mercadoesclavo.R;
+import com.example.dh_mercadoesclavo.model.Articulo;
+import com.example.dh_mercadoesclavo.view.ArticuloFragment;
+import com.example.dh_mercadoesclavo.view.DetailFragment;
 
 public class MainActivity extends AppCompatActivity implements ArticuloFragment.ArticuloFragmentListener {
 

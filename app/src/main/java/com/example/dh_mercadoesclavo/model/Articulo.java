@@ -1,4 +1,4 @@
-package com.example.dh_mercadoesclavo;
+package com.example.dh_mercadoesclavo.model;
 
 import java.io.Serializable;
 

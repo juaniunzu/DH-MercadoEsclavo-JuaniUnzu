@@ -1,4 +1,4 @@
-package com.example.dh_mercadoesclavo;
+package com.example.dh_mercadoesclavo.view;
 
 import android.os.Bundle;
 
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dh_mercadoesclavo.R;
+import com.example.dh_mercadoesclavo.model.Articulo;
 
 
 public class DetailFragment extends Fragment {

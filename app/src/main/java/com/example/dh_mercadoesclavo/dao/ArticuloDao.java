@@ -1,5 +1,8 @@
-package com.example.dh_mercadoesclavo;
+package com.example.dh_mercadoesclavo.dao;
 
+
+import com.example.dh_mercadoesclavo.R;
+import com.example.dh_mercadoesclavo.model.Articulo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +11,7 @@ import java.util.List;
 //solo es tener este metodo, y no nos interesa que se pueda instanciar. Es buena practica porque mantengo el fragment
 //mas ordenado, con menos codigo, y ademas, al momento en que la lista pueda ser traida de otra fuente, directamente
 //se toca este modulo.
-public abstract class ProveedorDeArticulos {
+public abstract class ArticuloDao {
 
     //static para que pueda llamarse sin ser instanciada la clase
     public static List<Articulo> getArticulos(){

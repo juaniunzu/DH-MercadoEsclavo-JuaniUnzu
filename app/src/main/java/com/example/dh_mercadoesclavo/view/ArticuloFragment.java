@@ -1,4 +1,4 @@
-package com.example.dh_mercadoesclavo;
+package com.example.dh_mercadoesclavo.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.dh_mercadoesclavo.dao.ArticuloDao;
+import com.example.dh_mercadoesclavo.R;
+import com.example.dh_mercadoesclavo.model.Articulo;
+
 import java.util.List;
-import java.util.SimpleTimeZone;
 
 
 /**
@@ -41,7 +44,7 @@ public class ArticuloFragment extends Fragment implements ArticuloAdapter.Articu
         RecyclerView fragmentArticuloRecyclerView = view.findViewById(R.id.fragmentArticuloRecyclerView);
 
         //creo lista que sera parametro en la construccion del adapter
-        List<Articulo> listaDeArticulos = ProveedorDeArticulos.getArticulos();
+        List<Articulo> listaDeArticulos = ArticuloDao.getArticulos();
         //creo adapter
         ArticuloAdapter articuloAdapter = new ArticuloAdapter(listaDeArticulos, this);
         //creo layout manager
