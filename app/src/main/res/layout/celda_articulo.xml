@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="18dp">
+    app:cardElevation="18dp"
+    app:strokeColor="@color/primary"
+    app:strokeWidth="5dp">
 
     <FrameLayout
         android:layout_width="match_parent"
