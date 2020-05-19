@@ -4,5 +4,6 @@
     <item
         android:id="@+id/navigationMenuAboutUs"
         android:title="About Us"
-        android:icon="@drawable/ic_star_black_24dp"/>
+        android:icon="@drawable/ic_star_color_primary_24dp"
+        android:iconTint="@color/colorPrimaryDark"/>
 </menu>

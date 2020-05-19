@@ -1,5 +1,7 @@
 package com.example.dh_mercadoesclavo.model;
 
+import com.example.dh_mercadoesclavo.R;
+
 import java.io.Serializable;
 
 //POJO - objeto a representar
@@ -71,6 +73,16 @@ public class Articulo implements Serializable {
             return "Disponible para enviar";
         } else {
             return "No disponible para enviar";
+        }
+    }
+
+    public Integer campoEnvioStyle(){
+        if(this.disponibleParaEnvios == null){
+            return R.style.Subtitle1NotClickable;
+        } else if (this.disponibleParaEnvios){
+            return R.style.Subtitle1Clickable;
+        } else {
+            return R.style.Subtitle1NotClickable;
         }
     }
 }

@@ -6,7 +6,7 @@
     android:layout_margin="10dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="18dp"
-    app:strokeColor="@color/primary"
+    app:strokeColor="@color/colorPrimary"
     app:strokeWidth="5dp">
 
     <FrameLayout

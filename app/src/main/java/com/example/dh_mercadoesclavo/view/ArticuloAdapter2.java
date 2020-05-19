@@ -84,6 +84,7 @@ public class ArticuloAdapter2 extends RecyclerView.Adapter<ArticuloAdapter2.Arti
             celdaArticulo2TextViewNombre.setText(unArticulo.getNombre());
             celdaArticulo2TextViewPrecio.setText(unArticulo.getPrecio());
             celdaArticulo2TextViewEnvios.setText(unArticulo.disponibleParaEnviar());
+            celdaArticulo2TextViewEnvios.setTextAppearance(unArticulo.campoEnvioStyle());
 
         }
     }
