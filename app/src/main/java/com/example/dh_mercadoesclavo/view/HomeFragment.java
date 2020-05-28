@@ -22,10 +22,9 @@ import com.example.dh_mercadoesclavo.util.ResultListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.cabriole.decorator.LinearMarginDecoration;
 
 
-public class HomeFragment extends Fragment implements ArticuloAdapter.ArticuloAdapterListener, ArticuloAdapter2.Articulo2AdapterListener {
+public class HomeFragment extends Fragment implements ArticuloAdapter2.Articulo2AdapterListener {
 
     private RecyclerView fragmentHomeRecyclerViewRecientes;
     private RecyclerView fragmentHomeRecyclerViewRecomendados;
@@ -63,7 +62,7 @@ public class HomeFragment extends Fragment implements ArticuloAdapter.ArticuloAd
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
                 fragmentHomeRecyclerViewRecomendados.setLayoutManager(linearLayoutManager);
                 fragmentHomeRecyclerViewRecomendados.setAdapter(adapterRecyclerRecomendados);
-                fragmentHomeRecyclerViewRecomendados.addItemDecoration(LinearMarg);
+
 
             }
         });
@@ -73,7 +72,7 @@ public class HomeFragment extends Fragment implements ArticuloAdapter.ArticuloAd
         List<Articulo> listaRecientes = new ArrayList<>();
         listaRecientes.add(new Articulo("Juego de adornos de navidad", "$1.000", R.drawable.adornosnavidenos, "Juego de adornos navideños surtidos, consultar disponibilidad antes de ofertar."));
 
-        ArticuloAdapter adapterRecyclerRecientes = new ArticuloAdapter(listaRecientes, this);
+        ArticuloAdapter adapterRecyclerRecientes = new ArticuloAdapter(listaRecientes);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
 
         fragmentHomeRecyclerViewRecientes.setLayoutManager(manager);
@@ -93,17 +92,12 @@ public class HomeFragment extends Fragment implements ArticuloAdapter.ArticuloAd
     }
 
     @Override
-    public void onClickArticulo(Articulo unArticulo) {
-        listener.onClickArticuloFragmentHome(unArticulo);
-    }
-
-    @Override
-    public void onClickAdapter2(Articulo unArticulo) {
-        listener.onClickArticuloFragmentHome(unArticulo);
+    public void onClickAdapter2(Articulo unArticulo, List<Articulo> articuloList) {
+        listener.onClickArticuloFragmentHome(unArticulo, articuloList);
     }
 
 
     public interface ArticuloHomeFragmentListener{
-        void onClickArticuloFragmentHome(Articulo unArticulo);
+        void onClickArticuloFragmentHome(Articulo unArticulo, List<Articulo> articuloList);
     }
 }

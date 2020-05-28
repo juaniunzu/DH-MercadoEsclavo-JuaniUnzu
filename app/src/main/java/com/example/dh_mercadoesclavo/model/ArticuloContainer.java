@@ -2,9 +2,10 @@ package com.example.dh_mercadoesclavo.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ArticuloContainer {
+public class ArticuloContainer implements Serializable {
 
     @SerializedName("site_id")
     private String siteId;

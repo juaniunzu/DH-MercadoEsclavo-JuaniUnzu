@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">DH-MercadoEsclavo</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="comprar">Comprar</string>
+    <string name="favoritos">Agregar a favoritos</string>
+    <string name="relacionados">Relacionados</string>
+    <string name="ver_mas">Ver más</string>
 </resources>

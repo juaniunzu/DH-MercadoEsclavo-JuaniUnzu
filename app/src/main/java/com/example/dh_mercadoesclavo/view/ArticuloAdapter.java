@@ -22,9 +22,8 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
     private List<Articulo> listaArticulos;
     private ArticuloAdapterListener articuloAdapterListener;
 
-    public ArticuloAdapter(List<Articulo> listaArticulos, ArticuloAdapterListener listener) {
+    public ArticuloAdapter(List<Articulo> listaArticulos) {
         this.listaArticulos = listaArticulos;
-        this.articuloAdapterListener = listener;
     }
 
     @NonNull
@@ -75,15 +74,6 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
             celdaArticuloImageView = itemView.findViewById(R.id.celdaArticuloImageView);
             celdaArticuloTextViewNombre = itemView.findViewById(R.id.celdaArticuloTextViewNombre);
             celdaArticuloTextViewPrecio = itemView.findViewById(R.id.celdaArticuloTextViewPrecio);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Articulo articulo = listaArticulos.get(getAdapterPosition());
-
-                    articuloAdapterListener.onClickArticulo(articulo);
-                }
-            });
 
         }
 

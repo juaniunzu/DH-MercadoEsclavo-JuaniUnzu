@@ -72,8 +72,9 @@ public class ArticuloAdapter2 extends RecyclerView.Adapter<ArticuloAdapter2.Arti
                 @Override
                 public void onClick(View v) {
                     Articulo articulo = listaArticulos.get(getAdapterPosition());
+                    List<Articulo> articuloList = listaArticulos;
 
-                    listener.onClickAdapter2(articulo);
+                    listener.onClickAdapter2(articulo, articuloList);
                 }
             });
 
@@ -95,7 +96,7 @@ public class ArticuloAdapter2 extends RecyclerView.Adapter<ArticuloAdapter2.Arti
     }
 
     public interface Articulo2AdapterListener{
-        void onClickAdapter2(Articulo unArticulo);
+        void onClickAdapter2(Articulo unArticulo, List<Articulo> articuloList);
     }
 
 

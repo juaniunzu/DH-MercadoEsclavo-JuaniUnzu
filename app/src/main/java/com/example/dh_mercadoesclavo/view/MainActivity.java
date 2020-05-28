@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -17,7 +18,10 @@ import com.example.dh_mercadoesclavo.view.ArticuloFragment;
 import com.example.dh_mercadoesclavo.view.DetailFragment;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements ArticuloAdapter2.Articulo2AdapterListener, HomeFragment.ArticuloHomeFragmentListener, ArticuloFragment.ArticuloFragmentListener, NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout activityMainDrawerLayout;
     private NavigationView activityMainNavigationView;
@@ -65,15 +69,6 @@ public class MainActivity extends AppCompatActivity implements ArticuloAdapter2.
     }
 
     @Override
-    public void onClickArticuloFragment(Articulo unArticulo) {
-        Bundle mainADetalle = new Bundle();
-        mainADetalle.putSerializable("articulo", unArticulo);
-        DetailFragment fragment = new DetailFragment();
-        fragment.setArguments(mainADetalle);
-        pegarFragment(fragment);
-    }
-
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
@@ -85,25 +80,16 @@ public class MainActivity extends AppCompatActivity implements ArticuloAdapter2.
         return false;
     }
 
-    @Override
-    public void onClickArticuloFragmentHome(Articulo unArticulo) {
-
-        Bundle mainADetalle = new Bundle();
-        mainADetalle.putSerializable("articulo", unArticulo);
-        DetailFragment fragment = new DetailFragment();
-        fragment.setArguments(mainADetalle);
-        pegarFragment(fragment);
-
-    }
 
     @Override
-    public void onClickAdapter2(Articulo unArticulo) {
+    public void onClickArticuloFragmentHome(Articulo unArticulo, List<Articulo> articuloList) {
 
+        Intent mainADetail = new Intent(this, DetailActivity.class);
         Bundle mainADetalle = new Bundle();
         mainADetalle.putSerializable("articulo", unArticulo);
-        DetailFragment fragment = new DetailFragment();
-        fragment.setArguments(mainADetalle);
-        pegarFragment(fragment);
+        mainADetalle.putSerializable("lista", (ArrayList) articuloList);
+        mainADetail.putExtras(mainADetalle);
+        startActivity(mainADetail);
 
     }
 }

@@ -47,7 +47,7 @@ public class ArticuloFragment extends Fragment implements ArticuloAdapter.Articu
         //creo lista que sera parametro en la construccion del adapter
         List<Articulo> listaDeArticulos = ArticuloDao.getArticulos();
         //creo adapter
-        ArticuloAdapter articuloAdapter = new ArticuloAdapter(listaDeArticulos, this);
+        ArticuloAdapter articuloAdapter = new ArticuloAdapter(listaDeArticulos);
         //creo layout manager
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, RecyclerView.VERTICAL, false);
 
