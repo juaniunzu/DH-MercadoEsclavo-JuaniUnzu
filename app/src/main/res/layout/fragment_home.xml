@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TextAppearance.MdcTypographyStyles.Headline4"
+            style="@style/Headline4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bienvenido!" />
@@ -27,10 +27,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/Headline5ConMargin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Visto recientemente"
-                    style="@style/TextAppearance.MdcTypographyStyles.Headline5"/>
+                    android:text="Visto recientemente" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragmentHomeRecyclerViewRecientes"
@@ -39,8 +39,10 @@
 
                 <TextView
                     android:id="@+id/fragmentHomeCardViewRecientesTextViewVerMas"
+                    style="@style/Subtitle1Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="ver historial de busqueda" />
 
             </LinearLayout>
@@ -58,10 +60,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/Headline5ConMargin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recomendados"
-                    style="@style/TextAppearance.MdcTypographyStyles.Headline5"/>
+                    android:text="Recomendados" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragmentHomeRecyclerViewRecomendados"
@@ -70,8 +72,10 @@
 
                 <TextView
                     android:id="@+id/fragmentHomeCardViewRecomendadosTextViewVerMas"
+                    style="@style/Subtitle1Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="ver mas" />
 
             </LinearLayout>
@@ -89,10 +93,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/Headline5ConMargin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ofertas"
-                    style="@style/TextAppearance.MdcTypographyStyles.Headline5"/>
+                    android:text="Ofertas" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragmentHomeRecyclerViewOfertas"
@@ -101,14 +105,15 @@
 
                 <TextView
                     android:id="@+id/fragmentHomeCardViewOfertasTextViewVerMas"
+                    style="@style/Subtitle1Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="ver mas" />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
 
 
     </LinearLayout>
