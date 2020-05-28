@@ -11,10 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activityMainToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            app:titleTextColor="@color/onPrimary" />
+
         <FrameLayout
             android:id="@+id/activityMainFragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/activityMainToolBar" />
 
     </RelativeLayout>
 
@@ -23,10 +31,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/navigation_menu"
-        android:background="@color/primary_light"
+        android:background="@color/colorPrimaryLight"
+        app:itemIconTint="@color/colorPrimaryDark"
         app:itemTextColor="@color/colorPrimaryDark"
-        app:itemIconTint="@color/colorPrimaryDark">
+        app:menu="@menu/navigation_menu">
 
     </com.google.android.material.navigation.NavigationView>
 

@@ -2,6 +2,7 @@ package com.example.dh_mercadoesclavo.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements ArticuloAdapter2.
 
     private DrawerLayout activityMainDrawerLayout;
     private NavigationView activityMainNavigationView;
+    private Toolbar activityMainToolBar;
 
 
     @Override
@@ -28,6 +30,13 @@ public class MainActivity extends AppCompatActivity implements ArticuloAdapter2.
         setContentView(R.layout.activity_main);
 
         findViewsById();
+
+        activityMainToolBar = findViewById(R.id.activityMainToolBar);
+        setSupportActionBar(activityMainToolBar);
+        getSupportActionBar().setTitle("Mercado Esclavo");
+
+
+
 
         activityMainNavigationView.setNavigationItemSelectedListener(this);
 

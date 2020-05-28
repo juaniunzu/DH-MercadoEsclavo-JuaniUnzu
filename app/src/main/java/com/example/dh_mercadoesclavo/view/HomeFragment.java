@@ -13,11 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dh_mercadoesclavo.R;
+import com.example.dh_mercadoesclavo.controller.ArticuloController;
 import com.example.dh_mercadoesclavo.dao.ArticuloDao;
 import com.example.dh_mercadoesclavo.model.Articulo;
+import com.example.dh_mercadoesclavo.model.ArticuloContainer;
+import com.example.dh_mercadoesclavo.util.ResultListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.cabriole.decorator.LinearMarginDecoration;
 
 
 public class HomeFragment extends Fragment implements ArticuloAdapter.ArticuloAdapterListener, ArticuloAdapter2.Articulo2AdapterListener {
@@ -36,27 +41,43 @@ public class HomeFragment extends Fragment implements ArticuloAdapter.ArticuloAd
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         findViewRecyclers(view);
 
+        setRecientesRecyclerView();
+
+        setRecomendadosRecyclerView();
+
+        return view;
+    }
+
+    private void setRecomendadosRecyclerView() {
+        ArticuloController articuloController = new ArticuloController();
+        articuloController.getFender(new ResultListener<ArticuloContainer>() {
+            @Override
+            public void onFinish(ArticuloContainer result) {
+
+                ArticuloAdapter2 adapterRecyclerRecomendados = new ArticuloAdapter2(result.getResults(), HomeFragment.this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                fragmentHomeRecyclerViewRecomendados.setLayoutManager(linearLayoutManager);
+                fragmentHomeRecyclerViewRecomendados.setAdapter(adapterRecyclerRecomendados);
+                fragmentHomeRecyclerViewRecomendados.addItemDecoration(LinearMarg);
+
+            }
+        });
+    }
+
+    private void setRecientesRecyclerView() {
         List<Articulo> listaRecientes = new ArrayList<>();
         listaRecientes.add(new Articulo("Juego de adornos de navidad", "$1.000", R.drawable.adornosnavidenos, "Juego de adornos navideños surtidos, consultar disponibilidad antes de ofertar."));
 
         ArticuloAdapter adapterRecyclerRecientes = new ArticuloAdapter(listaRecientes, this);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
 
-        ArticuloAdapter2 adapterRecyclerRecomendados = new ArticuloAdapter2(ArticuloDao.getArticulos(), this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-
-        fragmentHomeRecyclerViewRecomendados.setLayoutManager(linearLayoutManager);
-        fragmentHomeRecyclerViewRecomendados.setAdapter(adapterRecyclerRecomendados);
-
         fragmentHomeRecyclerViewRecientes.setLayoutManager(manager);
         fragmentHomeRecyclerViewRecientes.setAdapter(adapterRecyclerRecientes);
-
-        return view;
     }
 
     @Override

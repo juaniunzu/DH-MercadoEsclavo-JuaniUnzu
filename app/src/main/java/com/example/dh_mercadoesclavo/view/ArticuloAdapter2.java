@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.model.Articulo;
 
@@ -80,9 +81,13 @@ public class ArticuloAdapter2 extends RecyclerView.Adapter<ArticuloAdapter2.Arti
 
         public void onBind2(Articulo unArticulo){
 
-            celdaArticulo2ImageView.setImageResource(unArticulo.getImagen());
-            celdaArticulo2TextViewNombre.setText(unArticulo.getNombre());
-            celdaArticulo2TextViewPrecio.setText(unArticulo.getPrecio());
+            Glide.with(itemView.getContext())
+                    .load(unArticulo.getFoto())
+                    .centerCrop()
+                    .into(celdaArticulo2ImageView);
+
+            celdaArticulo2TextViewNombre.setText(unArticulo.getTitle());
+            celdaArticulo2TextViewPrecio.setText(unArticulo.getPrice().toString());
             celdaArticulo2TextViewEnvios.setText(unArticulo.disponibleParaEnviar());
             celdaArticulo2TextViewEnvios.setTextAppearance(unArticulo.campoEnvioStyle());
 
