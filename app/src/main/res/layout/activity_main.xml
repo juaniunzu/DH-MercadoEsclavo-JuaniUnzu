@@ -11,12 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/activityMainToolBar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimaryDark"
-            app:titleTextColor="@color/onPrimary" />
+        <include layout="@layout/my_toolbar" />
 
         <FrameLayout
             android:id="@+id/activityMainFragmentContainer"
@@ -27,6 +22,7 @@
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
+        android:layout_marginTop="?actionBarSize"
         android:id="@+id/activityMainNavigationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

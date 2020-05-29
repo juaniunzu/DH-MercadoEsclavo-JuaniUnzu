@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <item
+        android:id="@+id/navigationMenuInicio"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Inicio" />
+
+    <item
+        android:id="@+id/navigationMenuFavorite"
+        android:icon="@drawable/ic_favorite_black_24dp"
+        android:title="Favoritos" />
+
     <item
         android:id="@+id/navigationMenuAboutUs"
-        android:title="About Us"
         android:icon="@drawable/ic_star_color_primary_24dp"
-        android:iconTint="@color/colorPrimaryDark"/>
+        android:iconTint="@color/colorPrimaryDark"
+        android:title="About Us" />
+
+
+
+
 </menu>

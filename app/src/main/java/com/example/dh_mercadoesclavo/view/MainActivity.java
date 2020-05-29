@@ -1,6 +1,7 @@
 package com.example.dh_mercadoesclavo.view;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,7 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.model.Articulo;
@@ -35,11 +38,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
         findViewsById();
 
-        activityMainToolBar = findViewById(R.id.activityMainToolBar);
-        setSupportActionBar(activityMainToolBar);
-        getSupportActionBar().setTitle("Mercado Esclavo");
-
-
+        configurarToolBar();
 
 
         activityMainNavigationView.setNavigationItemSelectedListener(this);
@@ -50,9 +49,29 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     }
 
     /**
+     * configura la toolbar
+     */
+    private void configurarToolBar() {
+
+        setSupportActionBar(activityMainToolBar);
+        getSupportActionBar().setTitle("Mercado Esclavo");
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, activityMainDrawerLayout, activityMainToolBar, R.string.open_drawers, R.string.close_drawers);
+        activityMainDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        return true;
+    }
+
+    /**
      * metodo que linkea los atributos del main con los elementos xml correspondientes
      */
     private void findViewsById() {
+        activityMainToolBar = findViewById(R.id.activityMainToolBar);
         activityMainDrawerLayout = findViewById(R.id.activityMainDrawerLayout);
         activityMainNavigationView = findViewById(R.id.activityMainNavigationView);
     }
@@ -76,10 +95,25 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 pegarFragment(new AboutUsFragment());
                 activityMainDrawerLayout.closeDrawers();
                 break;
+            case R.id.navigationMenuFavorite:
+                Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
+                activityMainDrawerLayout.closeDrawers();
+                break;
+            case R.id.navigationMenuInicio:
+                Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
+                activityMainDrawerLayout.closeDrawers();
+            case R.id.topAppBarSearch:
+                Toast.makeText(this, "Busqueda en construccion", Toast.LENGTH_SHORT).show();
+                break;
         }
         return false;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        onNavigationItemSelected(item);
+        return true;
+    }
 
     @Override
     public void onClickArticuloFragmentHome(Articulo unArticulo, List<Articulo> articuloList) {

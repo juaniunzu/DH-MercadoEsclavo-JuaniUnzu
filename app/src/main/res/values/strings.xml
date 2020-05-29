@@ -5,4 +5,6 @@
     <string name="favoritos">Agregar a favoritos</string>
     <string name="relacionados">Relacionados</string>
     <string name="ver_mas">Ver más</string>
+    <string name="open_drawers">Open Drawer</string>
+    <string name="close_drawers">Close Drawer</string>
 </resources>
