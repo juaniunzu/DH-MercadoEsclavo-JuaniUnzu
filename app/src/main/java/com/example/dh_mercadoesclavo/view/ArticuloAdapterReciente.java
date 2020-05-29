@@ -17,12 +17,12 @@ import java.util.List;
 // entre boquitas se pone lo que retornara el onCreateViewHolder.
 // tambien hace que el holder del onBindViewHolder sea de tipo ArticuloViewHolder,
 // entonces nos evitaremos un casteo
-public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.ArticuloViewHolder> {
+public class ArticuloAdapterReciente extends RecyclerView.Adapter<ArticuloAdapterReciente.ArticuloViewHolder> {
 
     private List<Articulo> listaArticulos;
     private ArticuloAdapterListener articuloAdapterListener;
 
-    public ArticuloAdapter(List<Articulo> listaArticulos) {
+    public ArticuloAdapterReciente(List<Articulo> listaArticulos) {
         this.listaArticulos = listaArticulos;
     }
 
@@ -35,7 +35,7 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
         //inflador para pasar a View la celda xml
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         //celda inflada a xml
-        View view = layoutInflater.inflate(R.layout.celda_articulo, parent, false);
+        View view = layoutInflater.inflate(R.layout.celda_articulo_reciente, parent, false);
 
         return (new ArticuloViewHolder(view));
     }

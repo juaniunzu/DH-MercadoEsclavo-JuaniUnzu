@@ -15,12 +15,12 @@ import com.example.dh_mercadoesclavo.model.Articulo;
 
 import java.util.List;
 
-public class ArticuloAdapter2 extends RecyclerView.Adapter<ArticuloAdapter2.Articulo2ViewHolder> {
+public class ArticuloAdapterRecomendados extends RecyclerView.Adapter<ArticuloAdapterRecomendados.Articulo2ViewHolder> {
 
     private List<Articulo> listaArticulos;
     private Articulo2AdapterListener listener;
 
-    public ArticuloAdapter2(List<Articulo> listaArticulos, Articulo2AdapterListener listener) {
+    public ArticuloAdapterRecomendados(List<Articulo> listaArticulos, Articulo2AdapterListener listener) {
         this.listaArticulos = listaArticulos;
         this.listener = listener;
     }
@@ -32,7 +32,7 @@ public class ArticuloAdapter2 extends RecyclerView.Adapter<ArticuloAdapter2.Arti
         //inflador para pasar a View la celda xml
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         //celda inflada a xml
-        View inflate = layoutInflater.inflate(R.layout.celda_articulo_2, parent, false);
+        View inflate = layoutInflater.inflate(R.layout.celda_articulo_recomendado, parent, false);
 
         return (new Articulo2ViewHolder(inflate));
     }
@@ -88,7 +88,7 @@ public class ArticuloAdapter2 extends RecyclerView.Adapter<ArticuloAdapter2.Arti
                     .into(celdaArticulo2ImageView);
 
             celdaArticulo2TextViewNombre.setText(unArticulo.getTitle());
-            celdaArticulo2TextViewPrecio.setText(unArticulo.getPrice().toString());
+            celdaArticulo2TextViewPrecio.setText(String.format(itemView.getContext().getResources().getString(R.string.valor), unArticulo.getPrice().toString()));
             celdaArticulo2TextViewEnvios.setText(unArticulo.disponibleParaEnviar());
             celdaArticulo2TextViewEnvios.setTextAppearance(unArticulo.campoEnvioStyle());
 

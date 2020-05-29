@@ -55,7 +55,7 @@ public class DetailFragment extends Fragment {
 
         Glide.with(getActivity()).load(articulo.getFoto()).centerCrop().into(fragmentDetailImageView);
         fragmentDetailTextViewNombre.setText(articulo.getTitle());
-        fragmentDetailTextViewPrecio.setText(articulo.getPrice().toString());
+        fragmentDetailTextViewPrecio.setText(String.format(getContext().getResources().getString(R.string.valor), articulo.getPrice().toString()));
         fragmentDetailTextViewDescripcion.setText(articulo.getDescripcion());
 
         return view;

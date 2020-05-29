@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.controller.ArticuloController;
-import com.example.dh_mercadoesclavo.dao.ArticuloDao;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
 import com.example.dh_mercadoesclavo.util.ResultListener;
@@ -24,11 +23,13 @@ import java.util.List;
 
 
 
-public class HomeFragment extends Fragment implements ArticuloAdapter2.Articulo2AdapterListener {
+public class HomeFragment extends Fragment implements ArticuloAdapterRecomendados.Articulo2AdapterListener {
 
     private RecyclerView fragmentHomeRecyclerViewRecientes;
     private RecyclerView fragmentHomeRecyclerViewRecomendados;
-    private RecyclerView fragmentHomeRecyclerViewOfertas;
+    private RecyclerView fragmentHomeRecyclerViewPorqueVisitaste;
+    private RecyclerView fragmentHomeRecyclerViewFavorito;
+    private RecyclerView fragmentHomeRecyclerViewElegidos;
     private ArticuloHomeFragmentListener listener;
 
 
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment implements ArticuloAdapter2.Articulo2
             @Override
             public void onFinish(ArticuloContainer result) {
 
-                ArticuloAdapter2 adapterRecyclerRecomendados = new ArticuloAdapter2(result.getResults(), HomeFragment.this);
+                ArticuloAdapterRecomendados adapterRecyclerRecomendados = new ArticuloAdapterRecomendados(result.getResults(), HomeFragment.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
                 fragmentHomeRecyclerViewRecomendados.setLayoutManager(linearLayoutManager);
                 fragmentHomeRecyclerViewRecomendados.setAdapter(adapterRecyclerRecomendados);
@@ -72,11 +73,11 @@ public class HomeFragment extends Fragment implements ArticuloAdapter2.Articulo2
         List<Articulo> listaRecientes = new ArrayList<>();
         listaRecientes.add(new Articulo("Juego de adornos de navidad", "$1.000", R.drawable.adornosnavidenos, "Juego de adornos navideños surtidos, consultar disponibilidad antes de ofertar."));
 
-        ArticuloAdapter adapterRecyclerRecientes = new ArticuloAdapter(listaRecientes);
+        ArticuloAdapterReciente articuloAdapterReciente = new ArticuloAdapterReciente(listaRecientes);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
 
         fragmentHomeRecyclerViewRecientes.setLayoutManager(manager);
-        fragmentHomeRecyclerViewRecientes.setAdapter(adapterRecyclerRecientes);
+        fragmentHomeRecyclerViewRecientes.setAdapter(articuloAdapterReciente);
     }
 
     @Override
@@ -88,7 +89,9 @@ public class HomeFragment extends Fragment implements ArticuloAdapter2.Articulo2
     private void findViewRecyclers(View view) {
         fragmentHomeRecyclerViewRecientes = view.findViewById(R.id.fragmentHomeRecyclerViewRecientes);
         fragmentHomeRecyclerViewRecomendados = view.findViewById(R.id.fragmentHomeRecyclerViewRecomendados);
-        fragmentHomeRecyclerViewOfertas = view.findViewById(R.id.fragmentHomeRecyclerViewOfertas);
+        fragmentHomeRecyclerViewPorqueVisitaste = view.findViewById(R.id.fragmentHomeRecyclerViewPorqueVisitaste);
+        fragmentHomeRecyclerViewFavorito = view.findViewById(R.id.fragmentHomeRecyclerViewFavorito);
+        fragmentHomeRecyclerViewElegidos = view.findViewById(R.id.fragmentHomeRecyclerViewElegidos);
     }
 
     @Override

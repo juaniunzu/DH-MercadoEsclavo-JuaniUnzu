@@ -17,4 +17,7 @@
     <string name="recomendados">Recomendados</string>
     <string name="ofertas">Ofertas</string>
     <string name="en_construccion">En construcción</string>
+    <string name="porque_visitaste">Porque visitaste %s</string>
+    <string name="tus_favoritos">Tus favoritos</string>
+    <string name="elegidos">Elegidos para vos</string>
 </resources>

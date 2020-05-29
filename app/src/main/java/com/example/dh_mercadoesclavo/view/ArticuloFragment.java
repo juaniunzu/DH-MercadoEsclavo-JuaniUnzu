@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -23,7 +22,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticuloFragment extends Fragment implements ArticuloAdapter.ArticuloAdapterListener {
+public class ArticuloFragment extends Fragment implements ArticuloAdapterReciente.ArticuloAdapterListener {
 
     private ArticuloFragmentListener articuloFragmentListener;
 
@@ -47,7 +46,7 @@ public class ArticuloFragment extends Fragment implements ArticuloAdapter.Articu
         //creo lista que sera parametro en la construccion del adapter
         List<Articulo> listaDeArticulos = ArticuloDao.getArticulos();
         //creo adapter
-        ArticuloAdapter articuloAdapter = new ArticuloAdapter(listaDeArticulos);
+        ArticuloAdapterReciente articuloAdapter = new ArticuloAdapterReciente(listaDeArticulos);
         //creo layout manager
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, RecyclerView.VERTICAL, false);
 

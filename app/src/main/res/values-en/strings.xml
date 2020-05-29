@@ -17,4 +17,7 @@
     <string name="recomendados">Recommended</string>
     <string name="ofertas">On sale</string>
     <string name="en_construccion">Under maintenance</string>
+    <string name="porque_visitaste">Because you visited %s</string>
+    <string name="tus_favoritos">Your favourites</string>
+    <string name="elegidos">Chosen for you</string>
 </resources>
