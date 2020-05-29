@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DH-MercadoEsclavo</string>
+    <string name="comprar">Buy</string>
+    <string name="favoritos">Add to favorites</string>
+    <string name="relacionados">Related</string>
+    <string name="ver_mas">See more...</string>
+    <string name="about_us">About us</string>
+    <string name="nuestra_mision">Our mission:</string>
+    <string name="nuestra_vision">Our vision:</string>
+    <string name="nuestros_valores">Our valors:</string>
+    <string name="creador">About the app creator</string>
+    <string name="articulos_a_la_venta">Articles on sale</string>
+    <string name="bienvenido">Welcome!</string>
+    <string name="visto_recientemente">Recently viewed</string>
+    <string name="ver_historial">Search history</string>
+    <string name="recomendados">Recommended</string>
+    <string name="ofertas">On sale</string>
+    <string name="en_construccion">Under maintenance</string>
+</resources>

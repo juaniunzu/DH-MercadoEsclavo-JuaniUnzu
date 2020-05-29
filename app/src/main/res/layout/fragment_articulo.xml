@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Artículos a la venta"
+        android:text="@string/articulos_a_la_venta"
         android:textSize="25dp" />
 
     <androidx.recyclerview.widget.RecyclerView

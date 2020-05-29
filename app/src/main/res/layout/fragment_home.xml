@@ -14,7 +14,7 @@
             style="@style/Headline4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bienvenido!" />
+            android:text="@string/bienvenido" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                     style="@style/Headline5ConMargin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Visto recientemente" />
+                    android:text="@string/visto_recientemente" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragmentHomeRecyclerViewRecientes"
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="ver historial de busqueda" />
+                    android:text="@string/ver_historial" />
 
             </LinearLayout>
 
@@ -63,7 +63,7 @@
                     style="@style/Headline5ConMargin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recomendados" />
+                    android:text="@string/recomendados" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragmentHomeRecyclerViewRecomendados"
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="ver mas" />
+                    android:text="@string/ver_mas" />
 
             </LinearLayout>
 
@@ -96,7 +96,7 @@
                     style="@style/Headline5ConMargin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ofertas" />
+                    android:text="@string/ofertas" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragmentHomeRecyclerViewOfertas"
@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="ver mas" />
+                    android:text="@string/ver_mas" />
 
             </LinearLayout>
 

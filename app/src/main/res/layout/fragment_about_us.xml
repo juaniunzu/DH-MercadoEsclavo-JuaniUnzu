@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         tools:context=".view.AboutUsFragment">
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="About Us"
+            android:text="@string/about_us"
             android:textSize="28dp" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:text="Nuestra mision:"
+            android:text="@string/nuestra_mision"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="La misión busca sintetizar en un enunciado la razón de ser de la empresa, así como mencionar lo que la organización hace para cumplir y acercarse cada vez más a su propósito. Es el faro que indicará en todo momento la dirección a la que deben apuntar las acciones y las decisiones. Puede ser objeto de las revisiones y cambios que sean necesarios, para adecuarla a las circunstancias cambiantes del entorno."
+            android:text="@string/mision"
             android:textSize="20dp" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:text="Nuestra vision:"
+            android:text="@string/nuestra_vision"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="La visión plasma el lugar y circunstancia en que la organización quisiera estar en el futuro. Genera en la mente una imagen que inspira a la acción, a través de elementos que la presentan como algo alcanzable. En general, la visión permanecerá fija durante la vida de la empresa."
+            android:text="@string/vision"
             android:textSize="20dp" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:text="Nuestros valores:"
+            android:text="@string/nuestros_valores"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="Los valores representan todo aquello en lo que se cree y que además se está dispuesto a promover y defender. Son los pilares filosóficos accionables en que se sustenta la “conducta” de la empresa y los cuales se llevan a la práctica tanto al interior, como al exterior de la organización."
+            android:text="@string/valores"
             android:textSize="20dp" />
 
         <TextView
@@ -81,7 +81,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:text="Acerca del creador de la app:"
+            android:text="@string/creador"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -90,9 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="Juani Unzu es un estudiante de desarrollo Android, haciendo sus primeras armas en el mundo de la programación."
+            android:text="@string/creador_jiu"
             android:textSize="20dp" />
-
 
     </LinearLayout>
 </ScrollView>

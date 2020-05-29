@@ -18,7 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">+
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/celdaArticulo2TextViewNombre"
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Nombre item"
+            android:text="Precio item"
             style="@style/Subtitle1Precio"/>
 
         <TextView

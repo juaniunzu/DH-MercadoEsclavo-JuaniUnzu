@@ -96,14 +96,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 activityMainDrawerLayout.closeDrawers();
                 break;
             case R.id.navigationMenuFavorite:
-                Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 activityMainDrawerLayout.closeDrawers();
                 break;
             case R.id.navigationMenuInicio:
-                Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 activityMainDrawerLayout.closeDrawers();
             case R.id.topAppBarSearch:
-                Toast.makeText(this, "Busqueda en construccion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 break;
         }
         return false;
