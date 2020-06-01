@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     }
 
     @Override
-    public void onClickArticuloFragmentHome(Articulo unArticulo, List<Articulo> articuloList) {
+    public void onClickHomeFragmentRecomendados(Articulo unArticulo, List<Articulo> articuloList) {
 
         Intent mainADetail = new Intent(this, DetailActivity.class);
         Bundle mainADetalle = new Bundle();
@@ -125,5 +125,35 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         mainADetail.putExtras(mainADetalle);
         startActivity(mainADetail);
 
+    }
+
+    @Override
+    public void onClickHomeFragmentPorqueVisitaste(Articulo articulo, List<Articulo> articuloList) {
+        Intent mainADetail = new Intent(this, DetailActivity.class);
+        Bundle mainADetalle = new Bundle();
+        mainADetalle.putSerializable("articulo", articulo);
+        mainADetalle.putSerializable("lista", (ArrayList) articuloList);
+        mainADetail.putExtras(mainADetalle);
+        startActivity(mainADetail);
+    }
+
+    @Override
+    public void onClickHomeFragmentFavorito(Articulo articulo, List<Articulo> articuloList) {
+        Intent mainADetail = new Intent(this, DetailActivity.class);
+        Bundle mainADetalle = new Bundle();
+        mainADetalle.putSerializable("articulo", articulo);
+        mainADetalle.putSerializable("lista", (ArrayList) articuloList);
+        mainADetail.putExtras(mainADetalle);
+        startActivity(mainADetail);
+    }
+
+    @Override
+    public void onClickHomeFragmentElegidos(Articulo articulo, List<Articulo> articuloList) {
+        Intent mainADetail = new Intent(this, DetailActivity.class);
+        Bundle mainADetalle = new Bundle();
+        mainADetalle.putSerializable("articulo", articulo);
+        mainADetalle.putSerializable("lista", (ArrayList) articuloList);
+        mainADetail.putExtras(mainADetalle);
+        startActivity(mainADetail);
     }
 }

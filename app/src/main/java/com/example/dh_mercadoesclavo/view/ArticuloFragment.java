@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.dh_mercadoesclavo.dao.ArticuloDao;
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.model.Articulo;
+import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterReciente;
 
 import java.util.List;
 

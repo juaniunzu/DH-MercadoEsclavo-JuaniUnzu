@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="8dp"
+    android:background="@drawable/border">
+
+    <ImageView
+        android:id="@+id/celdaArticuloElegidosImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:layout_margin="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/celdaArticuloElegidosTextViewNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Nombre item"
+            style="@style/Headline6"/>
+
+        <TextView
+            android:id="@+id/celdaArticuloElegidosTextViewPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Precio item"
+            style="@style/Subtitle1Precio"/>
+
+    </LinearLayout>
+
+</LinearLayout>

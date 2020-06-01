@@ -1,4 +1,4 @@
-package com.example.dh_mercadoesclavo.view;
+package com.example.dh_mercadoesclavo.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,44 +15,44 @@ import com.example.dh_mercadoesclavo.model.Articulo;
 
 import java.util.List;
 
-public class ArticuloAdapterRecomendados extends RecyclerView.Adapter<ArticuloAdapterRecomendados.Articulo2ViewHolder> {
+public class ArticuloAdapterRecomendados extends RecyclerView.Adapter<ArticuloAdapterRecomendados.ArticuloRecomendadosViewHolder> {
 
     private List<Articulo> listaArticulos;
-    private Articulo2AdapterListener listener;
+    private ArticuloAdapterRecomendadosListener listener;
 
-    public ArticuloAdapterRecomendados(List<Articulo> listaArticulos, Articulo2AdapterListener listener) {
+    public ArticuloAdapterRecomendados(List<Articulo> listaArticulos, ArticuloAdapterRecomendadosListener listener) {
         this.listaArticulos = listaArticulos;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public Articulo2ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ArticuloRecomendadosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         //inflador para pasar a View la celda xml
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         //celda inflada a xml
-        View inflate = layoutInflater.inflate(R.layout.celda_articulo_recomendado, parent, false);
+        View inflate = layoutInflater.inflate(R.layout.celda_articulo_recomendados, parent, false);
 
-        return (new Articulo2ViewHolder(inflate));
+        return (new ArticuloRecomendadosViewHolder(inflate));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Articulo2ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ArticuloRecomendadosViewHolder holder, int position) {
 
         //tomo un articulo determinado segun la posicion y lo guardo en variable local.
         Articulo unArticulo = this.listaArticulos.get(position);
 
-        holder.onBind2(unArticulo);
+        holder.onBind(unArticulo);
 
     }
 
     @Override
     public int getItemCount() {
-        return this.listaArticulos.size();
+        return 5;
     }
 
-    protected class Articulo2ViewHolder extends RecyclerView.ViewHolder{
+    protected class ArticuloRecomendadosViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView celdaArticulo2ImageView;
         private TextView celdaArticulo2TextViewNombre;
@@ -60,7 +60,7 @@ public class ArticuloAdapterRecomendados extends RecyclerView.Adapter<ArticuloAd
         private TextView celdaArticulo2TextViewEnvios;
 
 
-        public Articulo2ViewHolder(@NonNull View itemView) {
+        public ArticuloRecomendadosViewHolder(@NonNull View itemView) {
             super(itemView);
 
             celdaArticulo2ImageView = itemView.findViewById(R.id.celdaArticulo2ImageView);
@@ -74,13 +74,13 @@ public class ArticuloAdapterRecomendados extends RecyclerView.Adapter<ArticuloAd
                     Articulo articulo = listaArticulos.get(getAdapterPosition());
                     List<Articulo> articuloList = listaArticulos;
 
-                    listener.onClickAdapter2(articulo, articuloList);
+                    listener.onClickAdapterRecomendados(articulo, articuloList);
                 }
             });
 
         }
 
-        public void onBind2(Articulo unArticulo){
+        public void onBind(Articulo unArticulo){
 
             Glide.with(itemView.getContext())
                     .load(unArticulo.getFoto())
@@ -95,8 +95,8 @@ public class ArticuloAdapterRecomendados extends RecyclerView.Adapter<ArticuloAd
         }
     }
 
-    public interface Articulo2AdapterListener{
-        void onClickAdapter2(Articulo unArticulo, List<Articulo> articuloList);
+    public interface ArticuloAdapterRecomendadosListener {
+        void onClickAdapterRecomendados(Articulo unArticulo, List<Articulo> articuloList);
     }
 
 

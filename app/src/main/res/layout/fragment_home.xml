@@ -44,11 +44,12 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/fragmentHomeCardViewRecientesTextViewVerMas"
+                    android:id="@+id/fragmentHomeCardViewRecientesTextViewHistorial"
                     style="@style/Subtitle1Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:clickable="true"
                     android:text="@string/ver_historial" />
 
             </LinearLayout>
@@ -84,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:clickable="true"
                     android:text="@string/ver_mas" />
 
             </LinearLayout>
@@ -119,6 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:clickable="true"
                     android:text="@string/ver_mas" />
 
             </LinearLayout>
@@ -154,6 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:clickable="true"
                     android:text="@string/ver_mas" />
 
             </LinearLayout>
@@ -186,6 +190,7 @@
                 <TextView
                     android:id="@+id/fragmentHomeCardViewElegidosTextViewVerMas"
                     style="@style/Subtitle1Clickable"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

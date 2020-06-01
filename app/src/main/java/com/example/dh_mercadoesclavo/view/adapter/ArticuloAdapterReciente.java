@@ -1,4 +1,4 @@
-package com.example.dh_mercadoesclavo.view;
+package com.example.dh_mercadoesclavo.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

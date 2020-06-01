@@ -5,25 +5,34 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.controller.ArticuloController;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
 import com.example.dh_mercadoesclavo.util.ResultListener;
+import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterElegidos;
+import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterFavorito;
+import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterPorqueVisitaste;
+import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterReciente;
+import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterRecomendados;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 
-public class HomeFragment extends Fragment implements ArticuloAdapterRecomendados.Articulo2AdapterListener {
+public class HomeFragment extends Fragment implements ArticuloAdapterRecomendados.ArticuloAdapterRecomendadosListener,
+        ArticuloAdapterPorqueVisitaste.ArticuloAdapterPorqueVisitasteListener, ArticuloAdapterFavorito.ArticuloAdapterFavoritoListener, ArticuloAdapterElegidos.ArticuloAdapterElegidosListener {
 
     private RecyclerView fragmentHomeRecyclerViewRecientes;
     private RecyclerView fragmentHomeRecyclerViewRecomendados;
@@ -31,6 +40,12 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     private RecyclerView fragmentHomeRecyclerViewFavorito;
     private RecyclerView fragmentHomeRecyclerViewElegidos;
     private ArticuloHomeFragmentListener listener;
+    private TextView fragmentHomeCardViewRecientesTextViewHistorial;
+    private TextView fragmentHomeCardViewRecomendadosTextViewVerMas;
+    private TextView fragmentHomeCardViewPorqueVisitasteTextViewVerMas;
+    private TextView fragmentHomeCardViewFavoritoTextViewVerMas;
+    private TextView fragmentHomeCardViewElegidosTextViewVerMas;
+
 
 
     public HomeFragment() {
@@ -50,7 +65,62 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
 
         setRecomendadosRecyclerView();
 
+        setPorqueVisitasteRecyclerView();
+
+        setFavoritoRecyclerView();
+
+        setElegidosRecyclerView();
+
+
+        fragmentHomeCardViewRecomendadosTextViewVerMas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //llamar el listener de este fragment y pasarle como lista una nueva call con una query a configurar
+            }
+        });
+
         return view;
+    }
+
+    private void setElegidosRecyclerView() {
+        ArticuloController articuloController = new ArticuloController();
+        articuloController.getFender(new ResultListener<ArticuloContainer>() {
+            @Override
+            public void onFinish(ArticuloContainer result) {
+                ArticuloAdapterFavorito articuloAdapterFavorito = new ArticuloAdapterFavorito(result.getResults(), HomeFragment.this);
+                LinearLayoutManager llm = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                fragmentHomeRecyclerViewElegidos.setAdapter(articuloAdapterFavorito);
+                fragmentHomeRecyclerViewElegidos.setLayoutManager(llm);
+            }
+        });
+    }
+
+    private void setFavoritoRecyclerView() {
+        ArticuloController articuloController = new ArticuloController();
+        articuloController.getFender(new ResultListener<ArticuloContainer>() {
+            @Override
+            public void onFinish(ArticuloContainer result) {
+                ArticuloAdapterFavorito articuloAdapterFavorito = new ArticuloAdapterFavorito(result.getResults(), HomeFragment.this);
+                LinearLayoutManager llm = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+                fragmentHomeRecyclerViewFavorito.setAdapter(articuloAdapterFavorito);
+                fragmentHomeRecyclerViewFavorito.setLayoutManager(llm);
+            }
+        });
+    }
+
+    private void setPorqueVisitasteRecyclerView() {
+        ArticuloController articuloController = new ArticuloController();
+        articuloController.getFender(new ResultListener<ArticuloContainer>() {
+            @Override
+            public void onFinish(ArticuloContainer result) {
+
+                ArticuloAdapterPorqueVisitaste articuloAdapterPorqueVisitaste = new ArticuloAdapterPorqueVisitaste(result.getResults(), HomeFragment.this);
+                GridLayoutManager glm = new GridLayoutManager(getContext(), 2, RecyclerView.VERTICAL, false);
+                fragmentHomeRecyclerViewPorqueVisitaste.setLayoutManager(glm);
+                fragmentHomeRecyclerViewPorqueVisitaste.setAdapter(articuloAdapterPorqueVisitaste);
+
+            }
+        });
     }
 
     private void setRecomendadosRecyclerView() {
@@ -63,7 +133,6 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
                 fragmentHomeRecyclerViewRecomendados.setLayoutManager(linearLayoutManager);
                 fragmentHomeRecyclerViewRecomendados.setAdapter(adapterRecyclerRecomendados);
-
 
             }
         });
@@ -92,15 +161,38 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
         fragmentHomeRecyclerViewPorqueVisitaste = view.findViewById(R.id.fragmentHomeRecyclerViewPorqueVisitaste);
         fragmentHomeRecyclerViewFavorito = view.findViewById(R.id.fragmentHomeRecyclerViewFavorito);
         fragmentHomeRecyclerViewElegidos = view.findViewById(R.id.fragmentHomeRecyclerViewElegidos);
+        fragmentHomeCardViewRecientesTextViewHistorial = view.findViewById(R.id.fragmentHomeCardViewRecientesTextViewHistorial);
+        fragmentHomeCardViewRecomendadosTextViewVerMas = view.findViewById(R.id.fragmentHomeCardViewRecomendadosTextViewVerMas);
+        fragmentHomeCardViewPorqueVisitasteTextViewVerMas = view.findViewById(R.id.fragmentHomeCardViewPorqueVisitasteTextViewVerMas);
+        fragmentHomeCardViewFavoritoTextViewVerMas = view.findViewById(R.id.fragmentHomeCardViewFavoritoTextViewVerMas);
+        fragmentHomeCardViewElegidosTextViewVerMas = view.findViewById(R.id.fragmentHomeCardViewElegidosTextViewVerMas);
     }
 
     @Override
-    public void onClickAdapter2(Articulo unArticulo, List<Articulo> articuloList) {
-        listener.onClickArticuloFragmentHome(unArticulo, articuloList);
+    public void onClickAdapterRecomendados(Articulo unArticulo, List<Articulo> articuloList) {
+        listener.onClickHomeFragmentRecomendados(unArticulo, articuloList);
+    }
+
+    @Override
+    public void onClickAdapterPorqueVisitaste(Articulo articulo, List<Articulo> articuloList) {
+        listener.onClickHomeFragmentPorqueVisitaste(articulo, articuloList);
+    }
+
+    @Override
+    public void onClickAdapterFavorito(Articulo articulo, List<Articulo> articuloList) {
+        listener.onClickHomeFragmentFavorito(articulo, articuloList);
+    }
+
+    @Override
+    public void onClickAdapterElegidos(Articulo articulo, List<Articulo> articuloList) {
+        listener.onClickHomeFragmentElegidos(articulo, articuloList);
     }
 
 
     public interface ArticuloHomeFragmentListener{
-        void onClickArticuloFragmentHome(Articulo unArticulo, List<Articulo> articuloList);
+        void onClickHomeFragmentRecomendados(Articulo unArticulo, List<Articulo> articuloList);
+        void onClickHomeFragmentPorqueVisitaste(Articulo articulo, List<Articulo> articuloList);
+        void onClickHomeFragmentFavorito(Articulo articulo, List<Articulo> articuloList);
+        void onClickHomeFragmentElegidos(Articulo articulo, List<Articulo> articuloList);
     }
 }
