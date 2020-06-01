@@ -11,6 +11,25 @@ public class ArticuloContainer implements Serializable {
     private String siteId;
     private String query;
     private List<Articulo> results;
+    private List<ArticuloContainerFilters> filters;
+
+    public ArticuloContainer(String siteId, String query, List<Articulo> results, List<ArticuloContainerFilters> filters) {
+        this.siteId = siteId;
+        this.query = query;
+        this.results = results;
+        this.filters = filters;
+    }
+
+    public ArticuloContainer() {
+    }
+
+    public List<ArticuloContainerFilters> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(List<ArticuloContainerFilters> filters) {
+        this.filters = filters;
+    }
 
     public String getSiteId() {
         return siteId;
