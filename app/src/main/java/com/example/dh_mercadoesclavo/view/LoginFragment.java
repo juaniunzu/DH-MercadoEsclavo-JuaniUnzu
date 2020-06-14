@@ -9,21 +9,53 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dh_mercadoesclavo.R;
+import com.example.dh_mercadoesclavo.databinding.FragmentLoginBinding;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
 
+    private FragmentLoginBinding binding;
+    private LoginFragmentListener listener;
+
+
     public LoginFragment() {
         // Required empty public constructor
     }
 
+    public LoginFragment(LoginFragmentListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        binding.fragmentLoginBotonLoginDeGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickBotonLogInGoogle();
+            }
+        });
+
+
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
+
+    public interface LoginFragmentListener{
+        void onClickBotonLogInGoogle();
     }
 }

@@ -19,6 +19,9 @@ import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.view.ArticuloFragment;
 import com.example.dh_mercadoesclavo.view.DetailFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -106,10 +109,27 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.navigationMenuPerfil:
-                Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
                 break;
+            case R.id.navigationMenuPerfilCerrarSesion:
+                cerrarSesionGoogle();
         }
         return false;
+    }
+
+    private void cerrarSesionGoogle() {
+        LoginActivity.client.signOut().addOnCanceledListener(new OnCanceledListener() {
+            @Override
+            public void onCanceled() {
+                Toast.makeText(MainActivity.this, "Cancelaste el logout", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(MainActivity.this, "Te deslogueaste", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

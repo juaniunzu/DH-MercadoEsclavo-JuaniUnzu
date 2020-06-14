@@ -23,5 +23,10 @@
         android:icon="@drawable/ic_person_black_24dp"
         android:title="@string/perfil" />
 
+    <item
+        android:id="@+id/navigationMenuPerfilCerrarSesion"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="cerrar sesion" />
+
 
 </menu>
