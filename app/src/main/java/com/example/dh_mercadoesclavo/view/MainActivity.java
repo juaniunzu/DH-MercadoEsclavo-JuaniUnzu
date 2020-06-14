@@ -11,8 +11,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
@@ -25,15 +27,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout activityMainDrawerLayout;
     private NavigationView activityMainNavigationView;
     private Toolbar activityMainToolBar;
+    private FirebaseUser usuarioLogueado;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -45,12 +52,26 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
         configurarToolBar();
 
-
         activityMainNavigationView.setNavigationItemSelectedListener(this);
 
         HomeFragment fragment = new HomeFragment();
         pegarFragment(fragment);
 
+        usuarioLogueado = mAuth.getCurrentUser();
+
+        if (haySesionIniciada()){
+            activityMainNavigationView.inflateHeaderView(R.layout.nav_header_logged);
+        } else {
+            activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
+        }
+
+    }
+
+    private Boolean haySesionIniciada(){
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        Boolean sesionEnGoogle = GoogleSignIn.getLastSignedInAccount(this) != null;
+        Boolean sesionEnFacebook = accessToken != null && !accessToken.isExpired();
+        return (sesionEnGoogle || sesionEnFacebook);
     }
 
     /**
@@ -118,6 +139,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
             case R.id.navigationMenuPerfilCerrarSesion:
                 cerrarSesionGoogle();
                 cerrarSesionFacebook();
+                activityMainNavigationView.getHeaderView(0).setVisibility(View.GONE);
+                activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
                 activityMainDrawerLayout.closeDrawers();
         }
         return false;
@@ -129,6 +152,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
             LoginManager.getInstance().logOut();
             Toast.makeText(this, "Te deslogueaste de facebook", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void cerrarSesion(){
+        FirebaseAuth.getInstance().signOut();
     }
 
     private void cerrarSesionGoogle() {

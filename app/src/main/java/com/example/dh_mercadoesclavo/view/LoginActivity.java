@@ -1,5 +1,6 @@
 package com.example.dh_mercadoesclavo.view;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -23,7 +24,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,11 +36,13 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity implements SignUpFragment.SignUpFragmentListener, LoginHomeFragment.LoginHomeFragmentListener, LoginFragment.LoginFragmentListener {
 
     private static final int RC_SIGN_IN = 1;
+    private static final String TAG = "LOGIN_CON_FIREBASE";
     public static GoogleSignInClient client;
     public static CallbackManager callbackManager;
     private static final String EMAIL = "email";
     public static Boolean logueadoEnFacebook;
     public static GoogleSignInAccount account;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -52,6 +59,8 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
 
         client = GoogleSignIn.getClient(this, gso);
         callbackManager = CallbackManager.Factory.create();
+
+        mAuth = FirebaseAuth.getInstance();
 
 
 
@@ -74,8 +83,57 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         logueadoEnFacebook = accessToken != null && !accessToken.isExpired();
 
+        //comprobar si ya hay usuario logueado, despues de este metodo habria q llamar updateUIFirebase(currentUser)
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
         updateUI(account);
 
+    }
+
+    private void crearUsuario(String mail, String password){
+        mAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUIFirebase(user);
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                    updateUIFirebase(null);
+                }
+            }
+        });
+    }
+
+    private void iniciarSesion(String mail, String password){
+        mAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUIFirebase(user);
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                    updateUIFirebase(null);
+                }
+            }
+        });
+    }
+
+    private void updateUIFirebase(FirebaseUser firebaseUser){
+        if(firebaseUser != null){
+            Toast.makeText(this, "se logueo: " + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void updateUI(GoogleSignInAccount account) {
@@ -113,6 +171,11 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
                 Toast.makeText(LoginActivity.this, "Error! verificar", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onClickBotonSignUp(String usuario, String password) {
+        crearUsuario(usuario, password);
     }
 
     private void signIn() {
@@ -186,5 +249,10 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
                 Toast.makeText(LoginActivity.this, "Error! verificar", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onClickBotonLogIn(String usuario, String password) {
+        iniciarSesion(usuario, password);
     }
 }

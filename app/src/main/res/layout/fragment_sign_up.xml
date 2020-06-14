@@ -117,7 +117,7 @@
             android:id="@+id/fragmentSignup_TextInputEditTextUsername"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Usuario"
+            android:hint="Email"
             android:textColorHint="#000" />
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -52,6 +52,13 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        binding.fragmentLoginButtonIniciarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickBotonLogIn(binding.fragmentLoginTextInputEditTextUsername.getText().toString(), binding.fragmentLoginTextInputEditTextPassword.getText().toString());
+            }
+        });
+
 
 
         return view;
@@ -66,5 +73,6 @@ public class LoginFragment extends Fragment {
     public interface LoginFragmentListener{
         void onClickBotonLogInGoogle();
         void onClickBotonLogInFacebook(LoginButton loginButton);
+        void onClickBotonLogIn(String usuario, String password);
     }
 }
