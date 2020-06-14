@@ -27,4 +27,12 @@
     <string name="porque_visitaste">Porque visitaste %s</string>
     <string name="tus_favoritos">Tus favoritos</string>
     <string name="elegidos">Elegidos para vos</string>
+    <string name="perfil">Mi perfil</string>
+    <string name="ingresa">Ingresa a tu cuenta</string>
+    <string name="ingresa_detalle">Para una mejor experiencia en la aplicación</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="hola">Hola, %s! Que bueno verte de nuevo!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

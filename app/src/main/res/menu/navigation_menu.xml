@@ -18,7 +18,10 @@
         android:iconTint="@color/colorPrimaryDark"
         android:title="About Us" />
 
-
+    <item
+        android:id="@+id/navigationMenuPerfil"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/perfil" />
 
 
 </menu>

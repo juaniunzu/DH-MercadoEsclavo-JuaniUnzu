@@ -20,4 +20,9 @@
     <string name="porque_visitaste">Because you visited %s</string>
     <string name="tus_favoritos">Your favourites</string>
     <string name="elegidos">Chosen for you</string>
+    <string name="perfil">My profile</string>
+    <string name="ingresa">Log in your account</string>
+    <string name="ingresa_detalle">For a better experiencie in your app</string>
+    <string name="ingresar">Sign in</string>
+    <string name="hola">Hello, %s! Nice to see you again!</string>
 </resources>

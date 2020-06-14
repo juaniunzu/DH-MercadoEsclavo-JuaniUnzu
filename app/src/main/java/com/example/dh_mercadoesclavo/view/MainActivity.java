@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
             case R.id.topAppBarSearch:
                 Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.navigationMenuPerfil:
+                Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
+                break;
         }
         return false;
     }
