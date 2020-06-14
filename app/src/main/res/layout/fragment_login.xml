@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="@id/fragmentLoginGuideline25"
         app:layout_constraintTop_toBottomOf="@id/fragmentLoginTextView" />
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/fragmentLogin_loginbuttonFacebook"
         android:layout_width="180dp"
         android:layout_height="wrap_content"

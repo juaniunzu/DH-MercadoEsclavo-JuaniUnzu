@@ -9,8 +9,15 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -18,10 +25,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class LoginActivity extends AppCompatActivity implements SignUpFragment.SignUpFragmentListener, LoginHomeFragment.LoginHomeFragmentListener, LoginFragment.LoginFragmentListener {
 
     private static final int RC_SIGN_IN = 1;
     public static GoogleSignInClient client;
+    public static CallbackManager callbackManager;
+    private static final String EMAIL = "email";
+    public static Boolean logueadoEnFacebook;
+    public static GoogleSignInAccount account;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +51,9 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
                 .build();
 
         client = GoogleSignIn.getClient(this, gso);
+        callbackManager = CallbackManager.Factory.create();
+
+
 
         reemplazarFragment(new LoginHomeFragment(this));
 
@@ -52,7 +70,9 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     @Override
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        logueadoEnFacebook = accessToken != null && !accessToken.isExpired();
 
         updateUI(account);
 
@@ -61,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     private void updateUI(GoogleSignInAccount account) {
         //hacer algo con la ui si el usuario esta logueado (si no esta logueado,
         //account = null).
-        if(account != null){
+        if(account != null || logueadoEnFacebook){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
@@ -72,6 +92,29 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
         signIn();
     }
 
+    @Override
+    public void onClickBotonSignUpFacebook(LoginButton loginButton) {
+        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(LoginActivity.this, "Login cancelado", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(LoginActivity.this, "Error! verificar", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void signIn() {
         Intent intent = client.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
@@ -79,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode){
@@ -93,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
 
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
-            GoogleSignInAccount account = task.getResult(ApiException.class);
+            account = task.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
             updateUI(account);
@@ -119,5 +163,28 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     @Override
     public void onClickBotonLogInGoogle() {
         signIn();
+    }
+
+    @Override
+    public void onClickBotonLogInFacebook(LoginButton loginButton) {
+        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(LoginActivity.this, "Login cancelado", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(LoginActivity.this, "Error! verificar", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

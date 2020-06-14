@@ -19,6 +19,8 @@ import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.view.ArticuloFragment;
 import com.example.dh_mercadoesclavo.view.DetailFragment;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -109,27 +111,40 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.navigationMenuPerfil:
+                //poner if que compruebe si esta logueado en algo
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.navigationMenuPerfilCerrarSesion:
                 cerrarSesionGoogle();
+                cerrarSesionFacebook();
+                activityMainDrawerLayout.closeDrawers();
         }
         return false;
     }
 
+    private void cerrarSesionFacebook(){
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if(accessToken != null && !accessToken.isExpired()){
+            LoginManager.getInstance().logOut();
+            Toast.makeText(this, "Te deslogueaste de facebook", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void cerrarSesionGoogle() {
-        LoginActivity.client.signOut().addOnCanceledListener(new OnCanceledListener() {
-            @Override
-            public void onCanceled() {
-                Toast.makeText(MainActivity.this, "Cancelaste el logout", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(MainActivity.this, "Te deslogueaste", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(GoogleSignIn.getLastSignedInAccount(this) != null) {
+            LoginActivity.client.signOut().addOnCanceledListener(new OnCanceledListener() {
+                @Override
+                public void onCanceled() {
+                    Toast.makeText(MainActivity.this, "Cancelaste el logout", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(MainActivity.this, "Te deslogueaste de google", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     @Override

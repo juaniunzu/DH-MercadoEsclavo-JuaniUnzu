@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.databinding.FragmentSignUpBinding;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.widget.LoginButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +44,13 @@ public class SignUpFragment extends Fragment {
             }
         });
 
+        binding.fragmentSignupSignupButtonFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickBotonSignUpFacebook(binding.fragmentSignupSignupButtonFacebook);
+            }
+        });
+
 
 
         return view;
@@ -54,5 +64,6 @@ public class SignUpFragment extends Fragment {
 
     public interface SignUpFragmentListener{
         void onClickBotonSignUpGoogle();
+        void onClickBotonSignUpFacebook(LoginButton loginButton);
     }
 }
