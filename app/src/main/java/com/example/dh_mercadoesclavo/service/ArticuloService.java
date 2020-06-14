@@ -1,6 +1,7 @@
 package com.example.dh_mercadoesclavo.service;
 
 
+import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
 
 import java.util.List;
@@ -16,8 +17,11 @@ public interface ArticuloService {
 
     //https://api.mercadolibre.com/sites/MLA/search?q=fender jazz bass&category=MLA1182
     //me traigo busqueda fender jazz bass en categoria instrumentos musicales
-    @GET("search?q=fender jazz bass&category=MLA1182")
+    @GET("sites/MLA/search?q=fender jazz bass&category=MLA1182")
     Call<ArticuloContainer> getFender();
+
+    @GET("items/{id}")
+    Call<Articulo> getItemsPorId(@Path("id") String id);
 
 
 

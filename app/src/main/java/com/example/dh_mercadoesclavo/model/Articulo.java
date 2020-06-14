@@ -1,9 +1,11 @@
 package com.example.dh_mercadoesclavo.model;
 
+
 import com.example.dh_mercadoesclavo.R;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 //POJO - objeto a representar
 public class Articulo implements Serializable {
@@ -19,11 +21,12 @@ public class Articulo implements Serializable {
     private Integer imagen;
     private String descripcion;
     private Boolean disponibleParaEnvios;
+    private List<Pic> pictures;
 
     public Articulo() {
     }
 
-    public Articulo(String id, String title, Double price, String condition, String foto, String nombre, String precio, Integer imagen, String descripcion, Boolean disponibleParaEnvios) {
+    public Articulo(String id, String title, Double price, String condition, String foto, String nombre, String precio, Integer imagen, String descripcion, Boolean disponibleParaEnvios, List<Pic> pictures) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -34,8 +37,10 @@ public class Articulo implements Serializable {
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.disponibleParaEnvios = disponibleParaEnvios;
+        this.pictures = pictures;
     }
 
+    //usado en lista hardcodeada
     public Articulo(String nombre, String precio, Integer imagen, String descripcion) {
         this.nombre = nombre;
         this.precio = precio;
@@ -43,18 +48,28 @@ public class Articulo implements Serializable {
         this.descripcion = descripcion;
     }
 
+    //usado en lista hardcodeada
     public Articulo(String nombre, String precio, Integer imagen) {
         this.nombre = nombre;
         this.precio = precio;
         this.imagen = imagen;
     }
 
+    //usado en lista hardcodeada
     public Articulo(String nombre, String precio, Integer imagen, String descripcion, Boolean disponibleParaEnvios) {
         this.nombre = nombre;
         this.precio = precio;
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.disponibleParaEnvios = disponibleParaEnvios;
+    }
+
+    public List<Pic> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Pic> pictures) {
+        this.pictures = pictures;
     }
 
     public String getNombre() {

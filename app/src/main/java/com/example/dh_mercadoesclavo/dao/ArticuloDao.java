@@ -32,6 +32,26 @@ public class ArticuloDao extends RetrofitDao{
         this.articuloService = super.retrofit.create(ArticuloService.class);
     }
 
+    public void getItemsPorId(String id, final ResultListener<Articulo> resultListenerDelController){
+        Call<Articulo> call = this.articuloService.getItemsPorId(id);
+        call.enqueue(new Callback<Articulo>() {
+            @Override
+            public void onResponse(Call<Articulo> call, Response<Articulo> response) {
+                if(response.isSuccessful()) {
+                    Articulo articulo = response.body();
+                    resultListenerDelController.onFinish(articulo);
+                } else{
+                    response.errorBody();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Articulo> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
     //tiene un listener del controller
     public void getFender(final ResultListener<ArticuloContainer> resultListenerDelController){
 
