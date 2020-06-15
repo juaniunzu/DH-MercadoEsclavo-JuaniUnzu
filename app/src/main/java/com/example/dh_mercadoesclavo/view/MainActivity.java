@@ -18,7 +18,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
+import com.example.dh_mercadoesclavo.controller.ArticuloController;
+import com.example.dh_mercadoesclavo.dao.ArticuloFirestoreDao;
 import com.example.dh_mercadoesclavo.model.Articulo;
+import com.example.dh_mercadoesclavo.util.ResultListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         } else {
             activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
         }
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
     }
 
@@ -206,5 +212,22 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     public void onClickCerrarSesionPerfilFragment() {
         cerrarSesionFirebaseAuth();
         pegarFragment(new HomeFragment());
+    }
+
+    @Override
+    public void onClickMisFavoritosPerfilFragment() {
+
+        ArticuloController articuloController = new ArticuloController();
+        articuloController.consultarArticulosEnFirebase(currentUser, new ResultListener<List<Articulo>>() {
+            @Override
+            public void onFinish(List<Articulo> result) {
+                Intent mainADetail = new Intent(MainActivity.this, DetailActivity.class);
+                Bundle mainADetalle = new Bundle();
+                mainADetalle.putSerializable("articulo", result.get(0));
+                mainADetalle.putSerializable("lista", (ArrayList) result);
+                mainADetail.putExtras(mainADetalle);
+                startActivity(mainADetail);
+            }
+        });
     }
 }

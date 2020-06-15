@@ -26,6 +26,7 @@ public class DetailFragment extends Fragment {
     private Button fragmentDetailButtonComprar;
     private Button fragmentDetailButtonFavoritos;
     private RecyclerView fragmentDetailRecyclerViewRelacionados;
+    private DetailFragmentListener listener;
 
 
 
@@ -33,8 +34,12 @@ public class DetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DetailFragment crearDetailFragment(Articulo unArticulo){
-        DetailFragment fragment = new DetailFragment();
+    public DetailFragment(DetailFragmentListener listener) {
+        this.listener = listener;
+    }
+
+    public static DetailFragment crearDetailFragment(Articulo unArticulo, DetailFragmentListener listener){
+        DetailFragment fragment = new DetailFragment(listener);
         Bundle datosDeArticulo = new Bundle();
         datosDeArticulo.putSerializable("articulo", unArticulo);
         fragment.setArguments(datosDeArticulo);
@@ -51,12 +56,19 @@ public class DetailFragment extends Fragment {
         findViews(view);
 
         Bundle bundle = getArguments();
-        Articulo articulo = (Articulo) bundle.getSerializable("articulo");
+        final Articulo articulo = (Articulo) bundle.getSerializable("articulo");
 
         Glide.with(getActivity()).load(articulo.getFoto()).centerCrop().into(fragmentDetailImageView);
         fragmentDetailTextViewNombre.setText(articulo.getTitle());
         fragmentDetailTextViewPrecio.setText(String.format(getContext().getResources().getString(R.string.valor), articulo.getPrice().toString()));
         fragmentDetailTextViewDescripcion.setText(articulo.getDescripcion());
+
+        fragmentDetailButtonFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickButtonFavoritosDetailFragment(articulo);
+            }
+        });
 
         return view;
     }
@@ -69,5 +81,9 @@ public class DetailFragment extends Fragment {
         fragmentDetailButtonComprar = view.findViewById(R.id.fragmentDetailButtonComprar);
         fragmentDetailButtonFavoritos = view.findViewById(R.id.fragmentDetailButtonFavoritos);
         fragmentDetailRecyclerViewRelacionados = view.findViewById(R.id.fragmentDetailRecyclerViewRelacionados);
+    }
+
+    public interface DetailFragmentListener{
+        void onClickButtonFavoritosDetailFragment(Articulo articulo);
     }
 }

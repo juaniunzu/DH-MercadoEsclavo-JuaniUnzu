@@ -40,6 +40,13 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        binding.layoutFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickMisFavoritosPerfilFragment();
+            }
+        });
+
 
 
 
@@ -49,6 +56,7 @@ public class PerfilFragment extends Fragment {
 
     public interface PerfilFragmentListener{
         void onClickCerrarSesionPerfilFragment();
+        void onClickMisFavoritosPerfilFragment();
     }
 
 
