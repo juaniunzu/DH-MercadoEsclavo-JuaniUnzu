@@ -57,9 +57,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         HomeFragment fragment = new HomeFragment();
         pegarFragment(fragment);
 
-        usuarioLogueado = mAuth.getCurrentUser();
-
-        if (haySesionIniciada()){
+        if (haySesionIniciada()) {
             activityMainNavigationView.inflateHeaderView(R.layout.nav_header_logged);
         } else {
             activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
     }
 
-    private Boolean haySesionIniciada(){
+    private Boolean haySesionIniciada() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         Boolean sesionEnGoogle = GoogleSignIn.getLastSignedInAccount(this) != null;
         Boolean sesionEnFacebook = accessToken != null && !accessToken.isExpired();
@@ -104,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
     /**
      * metodo que pega fragments en el main activity. Se le debe pasar como parametro el fragment deseado.
+     *
      * @param unFragment
      */
     private void pegarFragment(Fragment unFragment) {
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.navigationMenuAboutUs:
                 pegarFragment(new AboutUsFragment());
                 activityMainDrawerLayout.closeDrawers();
@@ -137,8 +136,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 startActivity(intent);
                 break;
             case R.id.navigationMenuPerfilCerrarSesion:
-                cerrarSesionGoogle();
+                //cerrarSesionGoogle();
                 cerrarSesionFacebook();
+                cerrarSesionFirebaseAuth();
                 activityMainNavigationView.getHeaderView(0).setVisibility(View.GONE);
                 activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
                 activityMainDrawerLayout.closeDrawers();
@@ -146,20 +146,22 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         return false;
     }
 
-    private void cerrarSesionFacebook(){
+    private void cerrarSesionFacebook() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if(accessToken != null && !accessToken.isExpired()){
+        if (accessToken != null && !accessToken.isExpired()) {
             LoginManager.getInstance().logOut();
             Toast.makeText(this, "Te deslogueaste de facebook", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void cerrarSesion(){
-        FirebaseAuth.getInstance().signOut();
+    private void cerrarSesionFirebaseAuth() {
+        FirebaseAuth client = FirebaseAuth.getInstance();
+        Toast.makeText(this, client.getCurrentUser().getDisplayName() + ", te deslogueaste correctamente", Toast.LENGTH_SHORT).show();
+        client.signOut();
     }
 
     private void cerrarSesionGoogle() {
-        if(GoogleSignIn.getLastSignedInAccount(this) != null) {
+        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
             LoginActivity.client.signOut().addOnCanceledListener(new OnCanceledListener() {
                 @Override
                 public void onCanceled() {
