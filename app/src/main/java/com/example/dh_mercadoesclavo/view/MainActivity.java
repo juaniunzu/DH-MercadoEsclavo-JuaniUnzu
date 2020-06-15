@@ -11,33 +11,22 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.model.Articulo;
-import com.example.dh_mercadoesclavo.view.ArticuloFragment;
-import com.example.dh_mercadoesclavo.view.DetailFragment;
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener, PerfilFragment.PerfilFragmentListener {
 
     private DrawerLayout activityMainDrawerLayout;
     private NavigationView activityMainNavigationView;
@@ -135,17 +124,19 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.navigationMenuPerfil:
-                //poner if que compruebe si esta logueado en algo
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.navigationMenuPerfilCerrarSesion:
-                cerrarSesionFirebaseAuth();
-                activityMainDrawerLayout.closeDrawers();
-                Boolean seCerroSesion = cerrarSesionFirebaseAuth();
-                if(seCerroSesion) {
+                FirebaseAuth client = FirebaseAuth.getInstance();
+                if(client.getCurrentUser() == null){
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    pegarFragment(new PerfilFragment(MainActivity.this));
                     activityMainDrawerLayout.closeDrawers();
                 }
+                break;
+            case R.id.navigationMenuPerfilCerrarSesion:
+                Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
+                activityMainDrawerLayout.closeDrawers();
+
         }
         return false;
     }
@@ -209,5 +200,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         mainADetalle.putSerializable("lista", (ArrayList) articuloList);
         mainADetail.putExtras(mainADetalle);
         startActivity(mainADetail);
+    }
+
+    @Override
+    public void onClickCerrarSesionPerfilFragment() {
+        cerrarSesionFirebaseAuth();
+        pegarFragment(new HomeFragment());
     }
 }
