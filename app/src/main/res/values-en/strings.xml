@@ -24,5 +24,5 @@
     <string name="ingresa">Log in your account</string>
     <string name="ingresa_detalle">For a better experiencie in your app</string>
     <string name="ingresar">Sign in</string>
-    <string name="hola">Hello, %s! Nice to see you again!</string>
+    <string name="hola">Hello, nice to see you again!</string>
 </resources>

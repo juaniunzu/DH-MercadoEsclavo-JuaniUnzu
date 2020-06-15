@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     public static CallbackManager callbackManager;
     private static final String EMAIL = "email";
     public static GoogleSignInAccount account;
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
 
 
     @Override
@@ -90,43 +90,59 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     }
 
     private void crearUsuario(String mail, String password){
-        mAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    updateUIFirebase(user);
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(LoginActivity.this, task.getException().getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                    updateUIFirebase(null);
+
+        if (datosCorrectos(mail, password)) {
+            mAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "createUserWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUIFirebase(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, task.getException().getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                        updateUIFirebase(null);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            Toast.makeText(this, "Verifique los datos ingresados", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    private boolean datosCorrectos(String mail, String pass) {
+        return (mail.length() > 10 && pass.length() > 8);
     }
 
     private void iniciarSesion(String mail, String password){
-        mAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    updateUIFirebase(user);
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                    Toast.makeText(LoginActivity.this, task.getException().getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                    updateUIFirebase(null);
+        if(datosCorrectos(mail, password)){
+            mAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUIFirebase(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, task.getException().getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                        updateUIFirebase(null);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            Toast.makeText(this, "Verifique los datos ingresados", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void updateUIFirebase(FirebaseUser firebaseUser){

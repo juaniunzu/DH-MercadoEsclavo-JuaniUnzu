@@ -11,10 +11,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
@@ -39,8 +42,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     private DrawerLayout activityMainDrawerLayout;
     private NavigationView activityMainNavigationView;
     private Toolbar activityMainToolBar;
-    private FirebaseUser usuarioLogueado;
+    private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+    private Button loginButton;
 
 
     @Override
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         HomeFragment fragment = new HomeFragment();
         pegarFragment(fragment);
 
+
         if (haySesionIniciada()) {
             activityMainNavigationView.inflateHeaderView(R.layout.nav_header_logged);
         } else {
@@ -66,10 +71,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     }
 
     private Boolean haySesionIniciada() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        Boolean sesionEnGoogle = GoogleSignIn.getLastSignedInAccount(this) != null;
-        Boolean sesionEnFacebook = accessToken != null && !accessToken.isExpired();
-        return (sesionEnGoogle || sesionEnFacebook);
+
+        return (FirebaseAuth.getInstance().getCurrentUser() != null);
     }
 
     /**
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         activityMainToolBar = findViewById(R.id.activityMainToolBar);
         activityMainDrawerLayout = findViewById(R.id.activityMainDrawerLayout);
         activityMainNavigationView = findViewById(R.id.activityMainNavigationView);
+
     }
 
     /**
@@ -132,22 +136,31 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 break;
             case R.id.navigationMenuPerfil:
                 //poner if que compruebe si esta logueado en algo
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.navigationMenuPerfilCerrarSesion:
                 cerrarSesionFirebaseAuth();
-                activityMainNavigationView.getHeaderView(0).setVisibility(View.GONE);
-                activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
                 activityMainDrawerLayout.closeDrawers();
+                Boolean seCerroSesion = cerrarSesionFirebaseAuth();
+                if(seCerroSesion) {
+                    activityMainDrawerLayout.closeDrawers();
+                }
         }
         return false;
     }
 
-    private void cerrarSesionFirebaseAuth() {
+    private Boolean cerrarSesionFirebaseAuth() {
         FirebaseAuth client = FirebaseAuth.getInstance();
-        Toast.makeText(this, client.getCurrentUser().getDisplayName() + ", te deslogueaste correctamente", Toast.LENGTH_SHORT).show();
-        client.signOut();
+        if(client.getCurrentUser() != null){
+            Toast.makeText(this, client.getCurrentUser().getDisplayName() + ", te deslogueaste correctamente", Toast.LENGTH_SHORT).show();
+            client.signOut();
+            activityMainNavigationView.getHeaderView(0).setVisibility(View.GONE);
+            activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
