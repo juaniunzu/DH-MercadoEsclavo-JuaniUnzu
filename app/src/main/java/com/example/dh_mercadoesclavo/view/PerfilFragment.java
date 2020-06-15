@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dh_mercadoesclavo.databinding.FragmentPerfilBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +19,7 @@ public class PerfilFragment extends Fragment {
 
     private FragmentPerfilBinding binding;
     private PerfilFragmentListener listener;
+    private FirebaseUser currentUser;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -33,6 +36,8 @@ public class PerfilFragment extends Fragment {
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         binding.layoutCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +51,14 @@ public class PerfilFragment extends Fragment {
                 listener.onClickMisFavoritosPerfilFragment();
             }
         });
+
+        if(currentUser.getDisplayName() != null){
+            binding.textViewNombre.setText(currentUser.getDisplayName());
+        } else {
+            binding.textViewNombre.setVisibility(View.GONE);
+        }
+
+        binding.textViewMail.setText(currentUser.getEmail());
 
 
 

@@ -73,12 +73,19 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
     @Override
     public void onClickButtonFavoritosDetailFragment(Articulo articulo) {
         ArticuloController articuloController = new ArticuloController();
-        articuloController.agregarArticuloAFirebase(articulo, currentUser, new ResultListener<Articulo>() {
-            @Override
-            public void onFinish(Articulo result) {
-                Toast.makeText(DetailActivity.this, "Se agregó el artículo a favoritos", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(currentUser != null){
+            articuloController.agregarArticuloAFirebase(articulo, currentUser, new ResultListener<Articulo>() {
+                @Override
+                public void onFinish(Articulo result) {
+                    Toast.makeText(DetailActivity.this, "Se agregó el artículo a favoritos", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, "Para agregar a favoritos, inicia sesion", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DetailActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+
     }
 
 
