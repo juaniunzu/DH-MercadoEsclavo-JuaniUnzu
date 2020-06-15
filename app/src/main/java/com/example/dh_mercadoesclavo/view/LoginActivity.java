@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -44,7 +45,6 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     public static GoogleSignInClient client;
     public static CallbackManager callbackManager;
     private static final String EMAIL = "email";
-    public static Boolean logueadoEnFacebook;
     public static GoogleSignInAccount account;
     private FirebaseAuth mAuth;
 
@@ -63,11 +63,10 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
                 .build();
 
         client = GoogleSignIn.getClient(this, gso);
+
         callbackManager = CallbackManager.Factory.create();
 
         mAuth = FirebaseAuth.getInstance();
-
-
 
         reemplazarFragment(new LoginHomeFragment(this));
 
@@ -84,10 +83,6 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     @Override
     protected void onStart() {
         super.onStart();
-        account = GoogleSignIn.getLastSignedInAccount(this);
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        logueadoEnFacebook = accessToken != null && !accessToken.isExpired();
-
         //comprobar si ya hay usuario logueado, despues de este metodo habria q llamar updateUIFirebase(currentUser)
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUIFirebase(currentUser);
@@ -135,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     }
 
     private void updateUIFirebase(FirebaseUser firebaseUser){
-        if(firebaseUser != null || logueadoEnFacebook){
+        if(firebaseUser != null){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
@@ -148,13 +143,13 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
 
     @Override
     public void onClickBotonSignUpFacebook(LoginButton loginButton) {
-        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        loginButton.setReadPermissions(EMAIL, "public_profile");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
@@ -164,9 +159,32 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(LoginActivity.this, "Error! verificar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Error en login Facebook! verificar", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void handleFacebookAccessToken(AccessToken accessToken){
+        Log.d(TAG, "handleFacebookAccessToken:" + accessToken);
+
+        AuthCredential authCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        mAuth.signInWithCredential(authCredential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUIFirebase(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            updateUIFirebase(null);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -247,14 +265,14 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     }
 
     @Override
-    public void onClickBotonLogInFacebook(LoginButton loginButton) {
-        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+    public void onClickBotonLogInFacebook(final LoginButton loginButton) {
+        loginButton.setReadPermissions(EMAIL, "public_profile");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
@@ -264,7 +282,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(LoginActivity.this, "Error! verificar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Error en login Facebook! verificar", Toast.LENGTH_SHORT).show();
             }
         });
     }

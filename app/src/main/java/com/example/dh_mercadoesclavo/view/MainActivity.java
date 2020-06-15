@@ -136,8 +136,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 startActivity(intent);
                 break;
             case R.id.navigationMenuPerfilCerrarSesion:
-                //cerrarSesionGoogle();
-                cerrarSesionFacebook();
                 cerrarSesionFirebaseAuth();
                 activityMainNavigationView.getHeaderView(0).setVisibility(View.GONE);
                 activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
@@ -146,34 +144,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         return false;
     }
 
-    private void cerrarSesionFacebook() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if (accessToken != null && !accessToken.isExpired()) {
-            LoginManager.getInstance().logOut();
-            Toast.makeText(this, "Te deslogueaste de facebook", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void cerrarSesionFirebaseAuth() {
         FirebaseAuth client = FirebaseAuth.getInstance();
         Toast.makeText(this, client.getCurrentUser().getDisplayName() + ", te deslogueaste correctamente", Toast.LENGTH_SHORT).show();
         client.signOut();
-    }
-
-    private void cerrarSesionGoogle() {
-        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-            LoginActivity.client.signOut().addOnCanceledListener(new OnCanceledListener() {
-                @Override
-                public void onCanceled() {
-                    Toast.makeText(MainActivity.this, "Cancelaste el logout", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(MainActivity.this, "Te deslogueaste de google", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
     }
 
     @Override
