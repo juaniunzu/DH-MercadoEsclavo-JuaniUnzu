@@ -221,12 +221,17 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         articuloController.consultarArticulosEnFirebase(currentUser, new ResultListener<List<Articulo>>() {
             @Override
             public void onFinish(List<Articulo> result) {
-                Intent mainADetail = new Intent(MainActivity.this, DetailActivity.class);
-                Bundle mainADetalle = new Bundle();
-                mainADetalle.putSerializable("articulo", result.get(0));
-                mainADetalle.putSerializable("lista", (ArrayList) result);
-                mainADetail.putExtras(mainADetalle);
-                startActivity(mainADetail);
+                if(result.size() > 0){
+                    Intent mainADetail = new Intent(MainActivity.this, DetailActivity.class);
+                    Bundle mainADetalle = new Bundle();
+                    mainADetalle.putSerializable("articulo", result.get(0));
+                    mainADetalle.putSerializable("lista", (ArrayList) result);
+                    mainADetail.putExtras(mainADetalle);
+                    startActivity(mainADetail);
+                } else {
+                    Toast.makeText(MainActivity.this, "Todavia no agregaste favoritos", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
