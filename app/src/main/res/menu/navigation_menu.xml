@@ -8,11 +8,6 @@
         android:title="Inicio" />
 
     <item
-        android:id="@+id/navigationMenuFavorite"
-        android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="Favoritos" />
-
-    <item
         android:id="@+id/navigationMenuAboutUs"
         android:icon="@drawable/ic_star_color_primary_24dp"
         android:iconTint="@color/colorPrimaryDark"
@@ -22,11 +17,6 @@
         android:id="@+id/navigationMenuPerfil"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="@string/perfil" />
-
-    <item
-        android:id="@+id/navigationMenuPerfilCerrarSesion"
-        android:icon="@drawable/ic_person_black_24dp"
-        android:title="cerrar sesion" />
 
 
 </menu>

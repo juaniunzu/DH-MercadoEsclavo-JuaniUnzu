@@ -119,12 +119,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 pegarFragment(new AboutUsFragment());
                 activityMainDrawerLayout.closeDrawers();
                 break;
-            case R.id.navigationMenuFavorite:
-                Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
-                activityMainDrawerLayout.closeDrawers();
-                break;
             case R.id.navigationMenuInicio:
-                Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
+                pegarFragment(new HomeFragment());
                 activityMainDrawerLayout.closeDrawers();
             case R.id.topAppBarSearch:
                 Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
@@ -139,10 +135,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                     activityMainDrawerLayout.closeDrawers();
                 }
                 break;
-            case R.id.navigationMenuPerfilCerrarSesion:
-                Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
-                activityMainDrawerLayout.closeDrawers();
-
         }
         return false;
     }
