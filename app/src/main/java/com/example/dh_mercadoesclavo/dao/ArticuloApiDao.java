@@ -1,16 +1,13 @@
 package com.example.dh_mercadoesclavo.dao;
 
 
-import com.example.dh_mercadoesclavo.R;
-import com.example.dh_mercadoesclavo.controller.ArticuloController;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
+import com.example.dh_mercadoesclavo.model.CategoriaPadre;
 import com.example.dh_mercadoesclavo.service.ArticuloService;
 import com.example.dh_mercadoesclavo.util.ResultListener;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +29,26 @@ public class ArticuloApiDao extends RetrofitDao{
         //y se encargara de sobreescribir los metodos de los servicios ofrecidos, que estan detallados
         //en la interfaz. el atributo super.retrofit viene heredado del padre (protected en clase RetrofitDao)
         this.articuloService = super.retrofit.create(ArticuloService.class);
+    }
+
+    public void getCategoriasPorId(String id, final ResultListener<CategoriaPadre> listener){
+        Call<CategoriaPadre> call = this.articuloService.getCategoriasPorId(id);
+        call.enqueue(new Callback<CategoriaPadre>() {
+            @Override
+            public void onResponse(Call<CategoriaPadre> call, Response<CategoriaPadre> response) {
+                if(response.isSuccessful()){
+                    CategoriaPadre categoriaPadre = response.body();
+                    listener.onFinish(categoriaPadre);
+                } else {
+                    response.errorBody();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoriaPadre> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     public void getItemsPorQuery(String searchText, Integer limit, final ResultListener<ArticuloContainer> resultListener){

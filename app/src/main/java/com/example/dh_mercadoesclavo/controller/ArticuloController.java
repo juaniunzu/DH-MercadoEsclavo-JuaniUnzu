@@ -4,6 +4,7 @@ import com.example.dh_mercadoesclavo.dao.ArticuloApiDao;
 import com.example.dh_mercadoesclavo.dao.ArticuloFirestoreDao;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
+import com.example.dh_mercadoesclavo.model.CategoriaPadre;
 import com.example.dh_mercadoesclavo.util.ResultListener;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -17,6 +18,15 @@ public class ArticuloController {
     public ArticuloController() {
         this.articuloApiDao = new ArticuloApiDao();
         this.articuloFirestoreDao = new ArticuloFirestoreDao();
+    }
+
+    public void getCategoriasPorId(String id, final ResultListener<CategoriaPadre> listener){
+        this.articuloApiDao.getCategoriasPorId(id, new ResultListener<CategoriaPadre>() {
+            @Override
+            public void onFinish(CategoriaPadre result) {
+                listener.onFinish(result);
+            }
+        });
     }
 
     public void getItemsPorQuery(String searchText, Integer limit, final ResultListener<ArticuloContainer> listener){
@@ -64,10 +74,10 @@ public class ArticuloController {
         });
     }
 
-    public void agregarCategoriaFavoritaAFirebase(Articulo articulo, FirebaseUser usuarioLogueado, final ResultListener<Articulo> listener){
-        articuloFirestoreDao.agregarCategoriaFavoritaAFirebase(articulo, usuarioLogueado, new ResultListener<Articulo>() {
+    public void agregarCategoriaFavoritaAFirebase(CategoriaPadre categoriaPadre, FirebaseUser usuarioLogueado, final ResultListener<CategoriaPadre> listener){
+        articuloFirestoreDao.agregarCategoriaFavoritaAFirebase(categoriaPadre, usuarioLogueado, new ResultListener<CategoriaPadre>() {
             @Override
-            public void onFinish(Articulo result) {
+            public void onFinish(CategoriaPadre result) {
                 listener.onFinish(result);
             }
         });

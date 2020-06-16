@@ -1,6 +1,8 @@
 package com.example.dh_mercadoesclavo.model;
 
-public class Pic {
+import java.io.Serializable;
+
+public class Pic implements Serializable {
 
     private String id;
     private String url;

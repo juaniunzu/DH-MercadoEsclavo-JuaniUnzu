@@ -1,6 +1,8 @@
 package com.example.dh_mercadoesclavo.model;
 
-public class Geolocation {
+import java.io.Serializable;
+
+public class Geolocation implements Serializable {
 
     private String latitude;
     private String longitude;

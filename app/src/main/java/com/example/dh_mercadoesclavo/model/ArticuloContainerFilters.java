@@ -1,8 +1,9 @@
 package com.example.dh_mercadoesclavo.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ArticuloContainerFilters {
+public class ArticuloContainerFilters implements Serializable {
 
     private List<ArticuloFilters> values;
 

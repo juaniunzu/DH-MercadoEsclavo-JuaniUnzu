@@ -1,11 +1,9 @@
 package com.example.dh_mercadoesclavo.dao;
 
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 
 import com.example.dh_mercadoesclavo.model.Articulo;
-import com.example.dh_mercadoesclavo.model.Categoria;
+import com.example.dh_mercadoesclavo.model.CategoriaPadre;
 import com.example.dh_mercadoesclavo.util.ResultListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,15 +40,15 @@ public class ArticuloFirestoreDao {
         });
     }
 
-    public void agregarCategoriaFavoritaAFirebase(final Articulo articulo, FirebaseUser usuarioLogueado, final ResultListener<Articulo> listener){
+    public void agregarCategoriaFavoritaAFirebase(final CategoriaPadre categoriaPadre, FirebaseUser usuarioLogueado, final ResultListener<CategoriaPadre> listener){
         db.collection(NOMBRE)
                 .document(usuarioLogueado.getUid())
                 .collection(CATEGORIAS)
-                .document(articulo.getCategoryId())
-                .set(new Categoria(articulo.getCategoryId(), null)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                .document(categoriaPadre.getId())
+                .set(categoriaPadre).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                listener.onFinish(articulo);
+                listener.onFinish(categoriaPadre);
             }
         });
     }

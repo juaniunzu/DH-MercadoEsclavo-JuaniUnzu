@@ -2,17 +2,17 @@ package com.example.dh_mercadoesclavo.model;
 
 import java.io.Serializable;
 
-public class ArticuloFilters implements Serializable {
+public class CategoriaHijo implements Serializable {
 
     private String id;
     private String name;
 
-    public ArticuloFilters(String id, String name) {
+    public CategoriaHijo(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public ArticuloFilters() {
+    public CategoriaHijo() {
     }
 
     public String getId() {

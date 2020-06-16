@@ -3,8 +3,7 @@ package com.example.dh_mercadoesclavo.service;
 
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
-
-import java.util.List;
+import com.example.dh_mercadoesclavo.model.CategoriaPadre;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -26,6 +25,9 @@ public interface ArticuloService {
 
     @GET("sites/MLA/search")
     Call<ArticuloContainer> getItemsPorQuery(@Query("q") String searchText, @Query("limit") Integer limit);
+
+    @GET("categories/{id}")
+    Call<CategoriaPadre> getCategoriasPorId(@Path("id") String id);
 
 
 }

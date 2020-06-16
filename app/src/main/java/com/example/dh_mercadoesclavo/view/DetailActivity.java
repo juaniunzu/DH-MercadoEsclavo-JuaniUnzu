@@ -18,6 +18,7 @@ import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.controller.ArticuloController;
 import com.example.dh_mercadoesclavo.dao.ArticuloFirestoreDao;
 import com.example.dh_mercadoesclavo.model.Articulo;
+import com.example.dh_mercadoesclavo.model.CategoriaPadre;
 import com.example.dh_mercadoesclavo.util.ResultListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,12 +85,18 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
                             Toast.makeText(DetailActivity.this, "Se agregó el artículo a favoritos", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    articuloController.agregarCategoriaFavoritaAFirebase(result, currentUser, new ResultListener<Articulo>() {
+                    articuloController.getCategoriasPorId(result.getCategoryId(), new ResultListener<CategoriaPadre>() {
                         @Override
-                        public void onFinish(Articulo result) {
-                            Toast.makeText(DetailActivity.this, "Se agrego la categoria " + result.getCategoryId() + " a tus favoritos", Toast.LENGTH_SHORT).show();
+                        public void onFinish(CategoriaPadre result) {
+                            articuloController.agregarCategoriaFavoritaAFirebase(result, currentUser, new ResultListener<CategoriaPadre>() {
+                                @Override
+                                public void onFinish(CategoriaPadre result) {
+                                    Toast.makeText(DetailActivity.this, "Se agrego la categoria " + result.getName() + " a favoritos", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     });
+
                 }
             });
         } else {
