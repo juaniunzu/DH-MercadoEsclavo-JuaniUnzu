@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
 
     }
 
-    private void reemplazarFragment(Fragment fragment){
+    private void reemplazarFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.activityLoginFragmentContainer, fragment);
@@ -83,19 +83,18 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
     @Override
     protected void onStart() {
         super.onStart();
-        //comprobar si ya hay usuario logueado, despues de este metodo habria q llamar updateUIFirebase(currentUser)
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUIFirebase(currentUser);
 
     }
 
-    private void crearUsuario(String mail, String password){
+    private void crearUsuario(String mail, String password) {
 
         if (datosCorrectos(mail, password)) {
             mAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
@@ -120,12 +119,12 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
         return (mail.length() > 10 && pass.length() > 8);
     }
 
-    private void iniciarSesion(String mail, String password){
-        if(datosCorrectos(mail, password)){
+    private void iniciarSesion(String mail, String password) {
+        if (datosCorrectos(mail, password)) {
             mAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
@@ -145,8 +144,8 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
 
     }
 
-    private void updateUIFirebase(FirebaseUser firebaseUser){
-        if(firebaseUser != null){
+    private void updateUIFirebase(FirebaseUser firebaseUser) {
+        if (firebaseUser != null) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
@@ -180,7 +179,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
         });
     }
 
-    private void handleFacebookAccessToken(AccessToken accessToken){
+    private void handleFacebookAccessToken(AccessToken accessToken) {
         Log.d(TAG, "handleFacebookAccessToken:" + accessToken);
 
         AuthCredential authCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
@@ -188,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -218,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
+        switch (requestCode) {
             case 1:
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 handleSignInResult(task);
@@ -250,7 +249,7 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();

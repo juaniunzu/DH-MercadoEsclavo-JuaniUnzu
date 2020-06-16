@@ -52,23 +52,20 @@ public class PerfilFragment extends Fragment {
             }
         });
 
-        if(currentUser.getDisplayName() != null){
+        if (currentUser.getDisplayName() != null) {
             binding.textViewNombre.setText(currentUser.getDisplayName());
         } else {
-            binding.textViewNombre.setVisibility(View.GONE);
+            binding.layoutNombre.setVisibility(View.GONE);
         }
 
         binding.textViewMail.setText(currentUser.getEmail());
 
-
-
-
-
         return view;
     }
 
-    public interface PerfilFragmentListener{
+    public interface PerfilFragmentListener {
         void onClickCerrarSesionPerfilFragment();
+
         void onClickMisFavoritosPerfilFragment();
     }
 

@@ -58,8 +58,6 @@ public class SignUpFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -69,9 +67,11 @@ public class SignUpFragment extends Fragment {
         binding = null;
     }
 
-    public interface SignUpFragmentListener{
+    public interface SignUpFragmentListener {
         void onClickBotonSignUpGoogle();
+
         void onClickBotonSignUpFacebook(LoginButton loginButton);
+
         void onClickBotonSignUp(String usuario, String password);
     }
 }

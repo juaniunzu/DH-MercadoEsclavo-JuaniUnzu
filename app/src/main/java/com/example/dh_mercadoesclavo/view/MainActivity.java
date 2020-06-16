@@ -14,21 +14,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.controller.ArticuloController;
+import com.example.dh_mercadoesclavo.databinding.ActivityMainBinding;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.CategoriaPadre;
 import com.example.dh_mercadoesclavo.util.ResultListener;
+import com.example.dh_mercadoesclavo.util.Utils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.internal.Util;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener, PerfilFragment.PerfilFragmentListener, DetailIndividualFragment.DetailIndividualFragmentListener {
 
@@ -37,16 +39,17 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     private Toolbar activityMainToolBar;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
-    private Button loginButton;
+    private ActivityMainBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
-        findViewsById();
+        findViews();
 
         configurarToolBar();
 
@@ -56,37 +59,32 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         reemplazarFragment(fragment);
 
 
-        if (haySesionIniciada()) {
+        if (Utils.haySesionIniciada()) {
             activityMainNavigationView.inflateHeaderView(R.layout.nav_header_logged);
         } else {
             activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
         }
 
-
-        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
     }
 
+    private void findViews() {
+        activityMainToolBar = findViewById(R.id.activityMainToolBar);
+        activityMainDrawerLayout = binding.activityMainDrawerLayout;
+        activityMainNavigationView = binding.activityMainNavigationView;
+    }
+
     @Override
     public void onBackPressed() {
-        if(getFragmentManager().getBackStackEntryCount() == 0) {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();
-        }
-        else {
+        } else {
             getFragmentManager().popBackStack();
         }
     }
 
-    private Boolean haySesionIniciada() {
-
-        return (FirebaseAuth.getInstance().getCurrentUser() != null);
-    }
-
-    /**
-     * configura la toolbar
-     */
     private void configurarToolBar() {
 
         setSupportActionBar(activityMainToolBar);
@@ -103,21 +101,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         return true;
     }
 
-    /**
-     * metodo que linkea los atributos del main con los elementos xml correspondientes
-     */
-    private void findViewsById() {
-        activityMainToolBar = findViewById(R.id.activityMainToolBar);
-        activityMainDrawerLayout = findViewById(R.id.activityMainDrawerLayout);
-        activityMainNavigationView = findViewById(R.id.activityMainNavigationView);
-
-    }
-
-    /**
-     * metodo que pega fragments en el main activity. Se le debe pasar como parametro el fragment deseado.
-     *
-     * @param unFragment
-     */
     private void reemplazarFragment(Fragment unFragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
@@ -125,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         fragmentTransaction.commit();
     }
 
-    private void pegarFragment(Fragment unFragment){
+    private void pegarFragment(Fragment unFragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.activityMainFragmentContainer, unFragment).addToBackStack("add");
@@ -147,8 +130,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.navigationMenuPerfil:
-                FirebaseAuth client = FirebaseAuth.getInstance();
-                if(client.getCurrentUser() == null){
+                if (!Utils.haySesionIniciada()) {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
@@ -160,30 +142,25 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         return false;
     }
 
-    private Boolean cerrarSesionFirebaseAuth() {
-        FirebaseAuth client = FirebaseAuth.getInstance();
-        if(client.getCurrentUser() != null){
-            Toast.makeText(this, client.getCurrentUser().getDisplayName() + ", te deslogueaste correctamente", Toast.LENGTH_SHORT).show();
-            client.signOut();
-            activityMainNavigationView.getHeaderView(0).setVisibility(View.GONE);
-            activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         onNavigationItemSelected(item);
         return true;
     }
 
+    private void cerrarSesionFirebaseAuth() {
+        FirebaseAuth client = FirebaseAuth.getInstance();
+        if (Utils.haySesionIniciada()) {
+            Toast.makeText(this, "Te deslogueaste correctamente", Toast.LENGTH_SHORT).show();
+            client.signOut();
+            activityMainNavigationView.getHeaderView(0).setVisibility(View.GONE);
+            activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
+        }
+    }
+
     @Override
     public void onClickHomeFragmentRecomendados(Articulo unArticulo, List<Articulo> articuloList) {
-
         pegarFragment(DetailIndividualFragment.crearDetailIndividualFragment(unArticulo, this));
-
     }
 
     @Override
@@ -229,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         articuloController.consultarArticulosEnFirebase(currentUser, new ResultListener<List<Articulo>>() {
             @Override
             public void onFinish(List<Articulo> result) {
-                if(result.size() > 0){
+                if (result.size() > 0) {
                     Intent mainADetail = new Intent(MainActivity.this, DetailActivity.class);
                     Bundle mainADetalle = new Bundle();
                     mainADetalle.putSerializable("articulo", result.get(0));
@@ -247,8 +224,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     @Override
     public void onClickButtonFavoritosDetailIndividualFragment(final Articulo articulo) {
         final ArticuloController articuloController = new ArticuloController();
-        if(currentUser != null){
-
+        if (Utils.haySesionIniciada()) {
             articuloController.getItemsPorId(articulo.getId(), new ResultListener<Articulo>() {
                 @Override
                 public void onFinish(Articulo result) {

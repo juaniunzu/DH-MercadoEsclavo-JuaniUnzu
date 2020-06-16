@@ -18,9 +18,11 @@ import android.widget.TextView;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.controller.ArticuloController;
+import com.example.dh_mercadoesclavo.databinding.FragmentHomeBinding;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
 import com.example.dh_mercadoesclavo.util.ResultListener;
+import com.example.dh_mercadoesclavo.util.Utils;
 import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterElegidos;
 import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterFavorito;
 import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterPorqueVisitaste;
@@ -32,7 +34,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 public class HomeFragment extends Fragment implements ArticuloAdapterRecomendados.ArticuloAdapterRecomendadosListener,
@@ -51,11 +52,9 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     private TextView fragmentHomeCardViewElegidosTextViewVerMas;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
     private CardView fragmentHomeCardViewFavorito;
     private CardView fragmentHomeCardViewPorqueVisitaste;
-
-
+    private FragmentHomeBinding binding;
 
 
     public HomeFragment() {
@@ -67,9 +66,10 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        db = FirebaseFirestore.getInstance();
+        View view = binding.getRoot();
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
@@ -169,24 +169,24 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     }
 
     private void findViewRecyclers(View view) {
-        fragmentHomeCardViewFavorito = view.findViewById(R.id.fragmentHomeCardViewFavorito);
-        if(currentUser == null){
+        fragmentHomeCardViewFavorito = binding.fragmentHomeCardViewFavorito;
+        if (!Utils.haySesionIniciada()) {
             fragmentHomeCardViewFavorito.setVisibility(View.GONE);
         }
-        fragmentHomeCardViewPorqueVisitaste = view.findViewById(R.id.fragmentHomeCardViewPorqueVisitaste);
-        if(currentUser == null){
+        fragmentHomeCardViewPorqueVisitaste = binding.fragmentHomeCardViewPorqueVisitaste;
+        if (!Utils.haySesionIniciada()) {
             fragmentHomeCardViewPorqueVisitaste.setVisibility(View.GONE);
         }
-        fragmentHomeRecyclerViewRecientes = view.findViewById(R.id.fragmentHomeRecyclerViewRecientes);
-        fragmentHomeRecyclerViewRecomendados = view.findViewById(R.id.fragmentHomeRecyclerViewRecomendados);
-        fragmentHomeRecyclerViewPorqueVisitaste = view.findViewById(R.id.fragmentHomeRecyclerViewPorqueVisitaste);
-        fragmentHomeRecyclerViewFavorito = view.findViewById(R.id.fragmentHomeRecyclerViewFavorito);
-        fragmentHomeRecyclerViewElegidos = view.findViewById(R.id.fragmentHomeRecyclerViewElegidos);
-        fragmentHomeCardViewRecientesTextViewHistorial = view.findViewById(R.id.fragmentHomeCardViewRecientesTextViewHistorial);
-        fragmentHomeCardViewRecomendadosTextViewVerMas = view.findViewById(R.id.fragmentHomeCardViewRecomendadosTextViewVerMas);
-        fragmentHomeCardViewPorqueVisitasteTextViewVerMas = view.findViewById(R.id.fragmentHomeCardViewPorqueVisitasteTextViewVerMas);
-        fragmentHomeCardViewFavoritoTextViewVerMas = view.findViewById(R.id.fragmentHomeCardViewFavoritoTextViewVerMas);
-        fragmentHomeCardViewElegidosTextViewVerMas = view.findViewById(R.id.fragmentHomeCardViewElegidosTextViewVerMas);
+        fragmentHomeRecyclerViewRecientes = binding.fragmentHomeRecyclerViewRecientes;
+        fragmentHomeRecyclerViewRecomendados = binding.fragmentHomeRecyclerViewRecomendados;
+        fragmentHomeRecyclerViewPorqueVisitaste = binding.fragmentHomeRecyclerViewPorqueVisitaste;
+        fragmentHomeRecyclerViewFavorito = binding.fragmentHomeRecyclerViewFavorito;
+        fragmentHomeRecyclerViewElegidos = binding.fragmentHomeRecyclerViewElegidos;
+        fragmentHomeCardViewRecientesTextViewHistorial = binding.fragmentHomeCardViewRecientesTextViewHistorial;
+        fragmentHomeCardViewRecomendadosTextViewVerMas = binding.fragmentHomeCardViewRecomendadosTextViewVerMas;
+        fragmentHomeCardViewPorqueVisitasteTextViewVerMas = binding.fragmentHomeCardViewPorqueVisitasteTextViewVerMas;
+        fragmentHomeCardViewFavoritoTextViewVerMas = binding.fragmentHomeCardViewFavoritoTextViewVerMas;
+        fragmentHomeCardViewElegidosTextViewVerMas = binding.fragmentHomeCardViewElegidosTextViewVerMas;
     }
 
     @Override
@@ -210,10 +210,13 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     }
 
 
-    public interface ArticuloHomeFragmentListener{
+    public interface ArticuloHomeFragmentListener {
         void onClickHomeFragmentRecomendados(Articulo unArticulo, List<Articulo> articuloList);
+
         void onClickHomeFragmentPorqueVisitaste(Articulo articulo, List<Articulo> articuloList);
+
         void onClickHomeFragmentFavorito(Articulo articulo, List<Articulo> articuloList);
+
         void onClickHomeFragmentElegidos(Articulo articulo, List<Articulo> articuloList);
     }
 }
