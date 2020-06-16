@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,9 @@ import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterFavorito;
 import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterPorqueVisitaste;
 import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterReciente;
 import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterRecomendados;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +49,12 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     private TextView fragmentHomeCardViewPorqueVisitasteTextViewVerMas;
     private TextView fragmentHomeCardViewFavoritoTextViewVerMas;
     private TextView fragmentHomeCardViewElegidosTextViewVerMas;
+    private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private CardView fragmentHomeCardViewFavorito;
+    private CardView fragmentHomeCardViewPorqueVisitaste;
+
 
 
 
@@ -58,6 +68,10 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         findViewRecyclers(view);
 
@@ -84,10 +98,10 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
 
     private void setElegidosRecyclerView() {
         ArticuloController articuloController = new ArticuloController();
-        articuloController.getFender(new ResultListener<ArticuloContainer>() {
+        articuloController.getFender(new ResultListener<List<Articulo>>() {
             @Override
-            public void onFinish(ArticuloContainer result) {
-                ArticuloAdapterFavorito articuloAdapterFavorito = new ArticuloAdapterFavorito(result.getResults(), HomeFragment.this);
+            public void onFinish(List<Articulo> result) {
+                ArticuloAdapterFavorito articuloAdapterFavorito = new ArticuloAdapterFavorito(result, HomeFragment.this);
                 LinearLayoutManager llm = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
                 fragmentHomeRecyclerViewElegidos.setAdapter(articuloAdapterFavorito);
                 fragmentHomeRecyclerViewElegidos.setLayoutManager(llm);
@@ -96,11 +110,12 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     }
 
     private void setFavoritoRecyclerView() {
+
         ArticuloController articuloController = new ArticuloController();
-        articuloController.getFender(new ResultListener<ArticuloContainer>() {
+        articuloController.getFender(new ResultListener<List<Articulo>>() {
             @Override
-            public void onFinish(ArticuloContainer result) {
-                ArticuloAdapterFavorito articuloAdapterFavorito = new ArticuloAdapterFavorito(result.getResults(), HomeFragment.this);
+            public void onFinish(List<Articulo> result) {
+                ArticuloAdapterFavorito articuloAdapterFavorito = new ArticuloAdapterFavorito(result, HomeFragment.this);
                 LinearLayoutManager llm = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
                 fragmentHomeRecyclerViewFavorito.setAdapter(articuloAdapterFavorito);
                 fragmentHomeRecyclerViewFavorito.setLayoutManager(llm);
@@ -110,26 +125,24 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
 
     private void setPorqueVisitasteRecyclerView() {
         ArticuloController articuloController = new ArticuloController();
-        articuloController.getFender(new ResultListener<ArticuloContainer>() {
+        articuloController.getItemsPorQuery("gibson bass", 10, new ResultListener<ArticuloContainer>() {
             @Override
             public void onFinish(ArticuloContainer result) {
-
                 ArticuloAdapterPorqueVisitaste articuloAdapterPorqueVisitaste = new ArticuloAdapterPorqueVisitaste(result.getResults(), HomeFragment.this);
                 GridLayoutManager glm = new GridLayoutManager(getContext(), 2, RecyclerView.VERTICAL, false);
                 fragmentHomeRecyclerViewPorqueVisitaste.setLayoutManager(glm);
                 fragmentHomeRecyclerViewPorqueVisitaste.setAdapter(articuloAdapterPorqueVisitaste);
-
             }
         });
     }
 
     private void setRecomendadosRecyclerView() {
-        ArticuloController articuloController = new ArticuloController();
-        articuloController.getFender(new ResultListener<ArticuloContainer>() {
+        final ArticuloController articuloController = new ArticuloController();
+        articuloController.getFender(new ResultListener<List<Articulo>>() {
             @Override
-            public void onFinish(ArticuloContainer result) {
+            public void onFinish(List<Articulo> result) {
 
-                ArticuloAdapterRecomendados adapterRecyclerRecomendados = new ArticuloAdapterRecomendados(result.getResults(), HomeFragment.this);
+                ArticuloAdapterRecomendados adapterRecyclerRecomendados = new ArticuloAdapterRecomendados(result, HomeFragment.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
                 fragmentHomeRecyclerViewRecomendados.setLayoutManager(linearLayoutManager);
                 fragmentHomeRecyclerViewRecomendados.setAdapter(adapterRecyclerRecomendados);
@@ -156,6 +169,14 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     }
 
     private void findViewRecyclers(View view) {
+        fragmentHomeCardViewFavorito = view.findViewById(R.id.fragmentHomeCardViewFavorito);
+        if(currentUser == null){
+            fragmentHomeCardViewFavorito.setVisibility(View.GONE);
+        }
+        fragmentHomeCardViewPorqueVisitaste = view.findViewById(R.id.fragmentHomeCardViewPorqueVisitaste);
+        if(currentUser == null){
+            fragmentHomeCardViewPorqueVisitaste.setVisibility(View.GONE);
+        }
         fragmentHomeRecyclerViewRecientes = view.findViewById(R.id.fragmentHomeRecyclerViewRecientes);
         fragmentHomeRecyclerViewRecomendados = view.findViewById(R.id.fragmentHomeRecyclerViewRecomendados);
         fragmentHomeRecyclerViewPorqueVisitaste = view.findViewById(R.id.fragmentHomeRecyclerViewPorqueVisitaste);

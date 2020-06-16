@@ -71,13 +71,25 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
     }
 
     @Override
-    public void onClickButtonFavoritosDetailFragment(Articulo articulo) {
-        ArticuloController articuloController = new ArticuloController();
+    public void onClickButtonFavoritosDetailFragment(final Articulo articulo) {
+        final ArticuloController articuloController = new ArticuloController();
         if(currentUser != null){
-            articuloController.agregarArticuloAFirebase(articulo, currentUser, new ResultListener<Articulo>() {
+
+            articuloController.getItemsPorId(articulo.getId(), new ResultListener<Articulo>() {
                 @Override
                 public void onFinish(Articulo result) {
-                    Toast.makeText(DetailActivity.this, "Se agregó el artículo a favoritos", Toast.LENGTH_SHORT).show();
+                    articuloController.agregarArticuloAFirebase(result, currentUser, new ResultListener<Articulo>() {
+                        @Override
+                        public void onFinish(Articulo result) {
+                            Toast.makeText(DetailActivity.this, "Se agregó el artículo a favoritos", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    articuloController.agregarCategoriaFavoritaAFirebase(result, currentUser, new ResultListener<Articulo>() {
+                        @Override
+                        public void onFinish(Articulo result) {
+                            Toast.makeText(DetailActivity.this, "Se agrego la categoria " + result.getCategoryId() + " a tus favoritos", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         } else {

@@ -2,6 +2,7 @@ package com.example.dh_mercadoesclavo.dao;
 
 
 import com.example.dh_mercadoesclavo.R;
+import com.example.dh_mercadoesclavo.controller.ArticuloController;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
 import com.example.dh_mercadoesclavo.service.ArticuloService;
@@ -9,6 +10,7 @@ import com.example.dh_mercadoesclavo.util.ResultListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +34,26 @@ public class ArticuloApiDao extends RetrofitDao{
         this.articuloService = super.retrofit.create(ArticuloService.class);
     }
 
+    public void getItemsPorQuery(String searchText, Integer limit, final ResultListener<ArticuloContainer> resultListener){
+        Call<ArticuloContainer> call = this.articuloService.getItemsPorQuery(searchText, limit);
+        call.enqueue(new Callback<ArticuloContainer>() {
+            @Override
+            public void onResponse(Call<ArticuloContainer> call, Response<ArticuloContainer> response) {
+                if(response.isSuccessful()){
+                    ArticuloContainer articuloContainer = response.body();
+                    resultListener.onFinish(articuloContainer);
+                } else {
+                    response.errorBody();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArticuloContainer> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
     public void getItemsPorId(String id, final ResultListener<Articulo> resultListenerDelController){
         Call<Articulo> call = this.articuloService.getItemsPorId(id);
         call.enqueue(new Callback<Articulo>() {
@@ -53,7 +75,7 @@ public class ArticuloApiDao extends RetrofitDao{
     }
 
     //tiene un listener del controller
-    public void getFender(final ResultListener<ArticuloContainer> resultListenerDelController){
+    public void getFender(final ResultListener<List<Articulo>> resultListenerDelController){
 
         //creo la llamada
         Call<ArticuloContainer> call = this.articuloService.getFender();
@@ -66,7 +88,7 @@ public class ArticuloApiDao extends RetrofitDao{
             public void onResponse(Call<ArticuloContainer> call, Response<ArticuloContainer> response) {
                 if(response.isSuccessful()){
                     ArticuloContainer body = response.body();
-                    resultListenerDelController.onFinish(body);
+                    resultListenerDelController.onFinish(body.getResults());
                 } else {
                     response.errorBody();
                     //manejar error, puede ser tipo 4xx o 5xx
@@ -81,6 +103,8 @@ public class ArticuloApiDao extends RetrofitDao{
         });
 
     }
+
+
 
 
 

@@ -11,10 +11,11 @@
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true"
         android:orientation="vertical"
-        tools:context=".view.DetailFragment">
+        tools:context=".view.DetailFragment"
+        android:background="#fff">
 
         <ImageView
-            android:id="@+id/fragmentDetailImageView"
+            android:id="@+id/fragmentDetailIndividualImageView"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="centerCrop"
@@ -22,55 +23,55 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/fragmentDetailTextViewNombre"
+            android:id="@+id/fragmentDetailIndividualTextViewNombre"
             style="@style/TextAppearance.MaterialComponents.Headline4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailImageView" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualImageView" />
 
         <TextView
-            android:id="@+id/fragmentDetailTextViewPrecio"
+            android:id="@+id/fragmentDetailIndividualTextViewPrecio"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
             android:textColor="#4CAF50"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailTextViewNombre" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualTextViewNombre" />
 
         <TextView
-            android:id="@+id/fragmentDetailTextViewDescripcion"
+            android:id="@+id/fragmentDetailIndividualTextViewDescripcion"
             style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="left"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailTextViewPrecio" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualTextViewPrecio" />
 
         <Button
-            android:id="@+id/fragmentDetailButtonComprar"
+            android:id="@+id/fragmentDetailIndividualButtonComprar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="@string/comprar"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailTextViewDescripcion" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualTextViewDescripcion" />
 
         <Button
-            android:id="@+id/fragmentDetailButtonFavoritos"
+            android:id="@+id/fragmentDetailIndividualButtonFavoritos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="@string/favoritos"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailButtonComprar" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualButtonComprar" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/fragmentDetailCardViewRelacionados"
+            android:id="@+id/fragmentDetailIndividualCardViewRelacionados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailButtonFavoritos">
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualButtonFavoritos">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +85,7 @@
                     android:text="@string/relacionados" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fragmentDetailRecyclerViewRelacionados"
+                    android:id="@+id/fragmentDetailIndividualRecyclerViewRelacionados"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -97,4 +98,3 @@
 
 
 </androidx.core.widget.NestedScrollView>
-

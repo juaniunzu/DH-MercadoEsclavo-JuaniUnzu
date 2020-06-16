@@ -19,23 +19,24 @@ import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.controller.ArticuloController;
-import com.example.dh_mercadoesclavo.dao.ArticuloFirestoreDao;
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.util.ResultListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener, PerfilFragment.PerfilFragmentListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener, PerfilFragment.PerfilFragmentListener, DetailIndividualFragment.DetailIndividualFragmentListener {
 
     private DrawerLayout activityMainDrawerLayout;
     private NavigationView activityMainNavigationView;
     private Toolbar activityMainToolBar;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private Button loginButton;
 
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
         activityMainNavigationView.setNavigationItemSelectedListener(this);
 
         HomeFragment fragment = new HomeFragment();
-        pegarFragment(fragment);
+        reemplazarFragment(fragment);
 
 
         if (haySesionIniciada()) {
@@ -60,9 +61,21 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
             activityMainNavigationView.inflateHeaderView(R.layout.nav_header_not_logged);
         }
 
+
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        }
+        else {
+            getFragmentManager().popBackStack();
+        }
     }
 
     private Boolean haySesionIniciada() {
@@ -104,10 +117,17 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
      *
      * @param unFragment
      */
-    private void pegarFragment(Fragment unFragment) {
+    private void reemplazarFragment(Fragment unFragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.activityMainFragmentContainer, unFragment).addToBackStack("add");
+        fragmentTransaction.commit();
+    }
+
+    private void pegarFragment(Fragment unFragment){
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.activityMainFragmentContainer, unFragment).addToBackStack("add");
         fragmentTransaction.commit();
     }
 
@@ -116,11 +136,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
         switch (item.getItemId()) {
             case R.id.navigationMenuAboutUs:
-                pegarFragment(new AboutUsFragment());
+                reemplazarFragment(new AboutUsFragment());
                 activityMainDrawerLayout.closeDrawers();
                 break;
             case R.id.navigationMenuInicio:
-                pegarFragment(new HomeFragment());
+                reemplazarFragment(new HomeFragment());
                 activityMainDrawerLayout.closeDrawers();
             case R.id.topAppBarSearch:
                 Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
@@ -131,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    pegarFragment(new PerfilFragment(MainActivity.this));
+                    reemplazarFragment(new PerfilFragment(MainActivity.this));
                     activityMainDrawerLayout.closeDrawers();
                 }
                 break;
@@ -161,12 +181,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     @Override
     public void onClickHomeFragmentRecomendados(Articulo unArticulo, List<Articulo> articuloList) {
 
-        Intent mainADetail = new Intent(this, DetailActivity.class);
-        Bundle mainADetalle = new Bundle();
-        mainADetalle.putSerializable("articulo", unArticulo);
-        mainADetalle.putSerializable("lista", (ArrayList) articuloList);
-        mainADetail.putExtras(mainADetalle);
-        startActivity(mainADetail);
+        pegarFragment(DetailIndividualFragment.crearDetailIndividualFragment(unArticulo, this));
 
     }
 
@@ -203,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     @Override
     public void onClickCerrarSesionPerfilFragment() {
         cerrarSesionFirebaseAuth();
-        pegarFragment(new HomeFragment());
+        reemplazarFragment(new HomeFragment());
     }
 
     @Override
@@ -226,5 +241,34 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
             }
         });
+    }
+
+    @Override
+    public void onClickButtonFavoritosDetailIndividualFragment(final Articulo articulo) {
+        final ArticuloController articuloController = new ArticuloController();
+        if(currentUser != null){
+
+            articuloController.getItemsPorId(articulo.getId(), new ResultListener<Articulo>() {
+                @Override
+                public void onFinish(Articulo result) {
+                    articuloController.agregarArticuloAFirebase(result, currentUser, new ResultListener<Articulo>() {
+                        @Override
+                        public void onFinish(Articulo result) {
+                            Toast.makeText(MainActivity.this, "Se agregó el artículo a favoritos", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    articuloController.agregarCategoriaFavoritaAFirebase(result, currentUser, new ResultListener<Articulo>() {
+                        @Override
+                        public void onFinish(Articulo result) {
+                            Toast.makeText(MainActivity.this, "Se agrego la categoria " + result.getCategoryId() + " a tus favoritos", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        } else {
+            Toast.makeText(this, "Para agregar a favoritos, inicia sesion", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 }

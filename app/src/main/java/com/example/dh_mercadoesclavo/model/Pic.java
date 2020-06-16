@@ -1,6 +1,6 @@
 package com.example.dh_mercadoesclavo.model;
 
-class Pic {
+public class Pic {
 
     private String id;
     private String url;

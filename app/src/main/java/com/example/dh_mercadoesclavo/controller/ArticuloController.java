@@ -19,11 +19,19 @@ public class ArticuloController {
         this.articuloFirestoreDao = new ArticuloFirestoreDao();
     }
 
-    //este tiene un listener de la vista
-    public void getFender(final ResultListener<ArticuloContainer> resultListenerDeLaView){
-        this.articuloApiDao.getFender(new ResultListener<ArticuloContainer>() {
+    public void getItemsPorQuery(String searchText, Integer limit, final ResultListener<ArticuloContainer> listener){
+        this.articuloApiDao.getItemsPorQuery(searchText, limit, new ResultListener<ArticuloContainer>() {
             @Override
             public void onFinish(ArticuloContainer result) {
+                listener.onFinish(result);
+            }
+        });
+    }
+
+    public void getFender(final ResultListener<List<Articulo>> resultListenerDeLaView){
+        this.articuloApiDao.getFender(new ResultListener<List<Articulo>>() {
+            @Override
+            public void onFinish(List<Articulo> result) {
                 resultListenerDeLaView.onFinish(result);
             }
         });
@@ -51,6 +59,15 @@ public class ArticuloController {
         articuloFirestoreDao.consultarArticulosEnFirebase(usuario, new ResultListener<List<Articulo>>() {
             @Override
             public void onFinish(List<Articulo> result) {
+                listener.onFinish(result);
+            }
+        });
+    }
+
+    public void agregarCategoriaFavoritaAFirebase(Articulo articulo, FirebaseUser usuarioLogueado, final ResultListener<Articulo> listener){
+        articuloFirestoreDao.agregarCategoriaFavoritaAFirebase(articulo, usuarioLogueado, new ResultListener<Articulo>() {
+            @Override
+            public void onFinish(Articulo result) {
                 listener.onFinish(result);
             }
         });

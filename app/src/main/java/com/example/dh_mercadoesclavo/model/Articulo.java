@@ -22,11 +22,14 @@ public class Articulo implements Serializable {
     private String descripcion;
     private Boolean disponibleParaEnvios;
     private List<Pic> pictures;
+    private Geolocation geolocation;
+    @SerializedName("category_id")
+    private String categoryId;
 
     public Articulo() {
     }
 
-    public Articulo(String id, String title, Double price, String condition, String foto, String nombre, String precio, Integer imagen, String descripcion, Boolean disponibleParaEnvios, List<Pic> pictures) {
+    public Articulo(String id, String title, Double price, String condition, String foto, String nombre, String precio, Integer imagen, String descripcion, Boolean disponibleParaEnvios, List<Pic> pictures, Geolocation geolocation, String categoryId) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -38,6 +41,8 @@ public class Articulo implements Serializable {
         this.descripcion = descripcion;
         this.disponibleParaEnvios = disponibleParaEnvios;
         this.pictures = pictures;
+        this.geolocation = geolocation;
+        this.categoryId = categoryId;
     }
 
     //usado en lista hardcodeada
@@ -66,6 +71,22 @@ public class Articulo implements Serializable {
 
     public List<Pic> getPictures() {
         return pictures;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Geolocation getGeolocation() {
+        return geolocation;
+    }
+
+    public void setGeolocation(Geolocation geolocation) {
+        this.geolocation = geolocation;
     }
 
     public void setPictures(List<Pic> pictures) {
@@ -104,20 +125,20 @@ public class Articulo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String disponibleParaEnviar(){
-        if(this.disponibleParaEnvios == null){
+    public String disponibleParaEnviar() {
+        if (this.disponibleParaEnvios == null) {
             return "Consultar por envio";
-        } else if (this.disponibleParaEnvios){
+        } else if (this.disponibleParaEnvios) {
             return "Disponible para enviar";
         } else {
             return "No disponible para enviar";
         }
     }
 
-    public Integer campoEnvioStyle(){
-        if(this.disponibleParaEnvios == null){
+    public Integer campoEnvioStyle() {
+        if (this.disponibleParaEnvios == null) {
             return R.style.Subtitle1NotClickable;
-        } else if (this.disponibleParaEnvios){
+        } else if (this.disponibleParaEnvios) {
             return R.style.Subtitle1Clickable;
         } else {
             return R.style.Subtitle1NotClickable;
