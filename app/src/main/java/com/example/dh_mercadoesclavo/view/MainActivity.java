@@ -95,12 +95,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_app_bar, menu);
-        return true;
-    }
-
     private void reemplazarFragment(Fragment unFragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
@@ -127,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
                 reemplazarFragment(new HomeFragment());
                 activityMainDrawerLayout.closeDrawers();
             case R.id.topAppBarSearch:
-                Toast.makeText(this, R.string.en_construccion, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.navigationMenuPerfil:
                 if (!Utils.haySesionIniciada()) {
@@ -161,26 +154,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     @Override
     public void onClickHomeFragmentRecomendados(Articulo unArticulo, List<Articulo> articuloList) {
         pegarFragment(DetailIndividualFragment.crearDetailIndividualFragment(unArticulo, this));
-    }
-
-    @Override
-    public void onClickHomeFragmentPorqueVisitaste(Articulo articulo, List<Articulo> articuloList) {
-        Intent mainADetail = new Intent(this, DetailActivity.class);
-        Bundle mainADetalle = new Bundle();
-        mainADetalle.putSerializable("articulo", articulo);
-        mainADetalle.putSerializable("lista", (ArrayList) articuloList);
-        mainADetail.putExtras(mainADetalle);
-        startActivity(mainADetail);
-    }
-
-    @Override
-    public void onClickHomeFragmentFavorito(Articulo articulo, List<Articulo> articuloList) {
-        Intent mainADetail = new Intent(this, DetailActivity.class);
-        Bundle mainADetalle = new Bundle();
-        mainADetalle.putSerializable("articulo", articulo);
-        mainADetalle.putSerializable("lista", (ArrayList) articuloList);
-        mainADetail.putExtras(mainADetalle);
-        startActivity(mainADetail);
     }
 
     @Override

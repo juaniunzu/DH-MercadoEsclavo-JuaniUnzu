@@ -43,7 +43,7 @@ public class ArticuloAdapterElegidos extends RecyclerView.Adapter<ArticuloAdapte
 
     @Override
     public int getItemCount() {
-        return 5;
+        return this.listaArticulos.size();
     }
 
     protected class ArticuloElegidosViewHolder extends RecyclerView.ViewHolder{

@@ -37,7 +37,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/mision"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/vision"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/valores"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/creador_jiu"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
     </LinearLayout>
 </ScrollView>

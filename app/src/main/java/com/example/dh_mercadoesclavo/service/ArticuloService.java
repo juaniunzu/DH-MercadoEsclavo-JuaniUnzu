@@ -24,7 +24,10 @@ public interface ArticuloService {
     Call<Articulo> getItemsPorId(@Path("id") String id);
 
     @GET("sites/MLA/search")
-    Call<ArticuloContainer> getItemsPorQuery(@Query("q") String searchText, @Query("limit") Integer limit);
+    Call<ArticuloContainer> getItemsPorQuery(
+            @Query("q") String searchText,
+            @Query("limit") Integer limit,
+            @Query("category") String categoria);
 
     @GET("categories/{id}")
     Call<CategoriaPadre> getCategoriasPorId(@Path("id") String id);

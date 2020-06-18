@@ -23,9 +23,7 @@ public class DetailFragment extends Fragment {
     private TextView fragmentDetailTextViewNombre;
     private TextView fragmentDetailTextViewPrecio;
     private TextView fragmentDetailTextViewDescripcion;
-    private Button fragmentDetailButtonComprar;
     private Button fragmentDetailButtonFavoritos;
-    private RecyclerView fragmentDetailRecyclerViewRelacionados;
     private DetailFragmentListener listener;
 
 
@@ -78,9 +76,7 @@ public class DetailFragment extends Fragment {
         fragmentDetailTextViewNombre = view.findViewById(R.id.fragmentDetailTextViewNombre);
         fragmentDetailTextViewPrecio = view.findViewById(R.id.fragmentDetailTextViewPrecio);
         fragmentDetailTextViewDescripcion = view.findViewById(R.id.fragmentDetailTextViewDescripcion);
-        fragmentDetailButtonComprar = view.findViewById(R.id.fragmentDetailButtonComprar);
         fragmentDetailButtonFavoritos = view.findViewById(R.id.fragmentDetailButtonFavoritos);
-        fragmentDetailRecyclerViewRelacionados = view.findViewById(R.id.fragmentDetailRecyclerViewRelacionados);
     }
 
     public interface DetailFragmentListener{

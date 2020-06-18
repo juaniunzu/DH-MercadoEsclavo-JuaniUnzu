@@ -25,4 +25,7 @@
     <string name="ingresa_detalle">Para una mejor experiencia en la aplicación</string>
     <string name="ingresar">Ingresar</string>
     <string name="hola">Hola, que bueno verte de nuevo!</string>
+    <string name="inicia_sesion">Inicia sesion y veras que tenemos para ofrecerte!</string>
+    <string name="guarda_favoritos">Guarda tus articulos favoritos y veras que tenemos para ofrecerte!</string>
+    <string name="inicio">Inicio</string>
 </resources>

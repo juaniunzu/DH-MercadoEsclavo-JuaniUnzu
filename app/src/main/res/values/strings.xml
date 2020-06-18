@@ -8,14 +8,26 @@
     <string name="open_drawers" translatable="false">Open Drawer</string>
     <string name="close_drawers" translatable="false">Close Drawer</string>
     <string name="about_us">About us</string>
+
+
     <string name="nuestra_mision">Nuestra misión:</string>
-    <string name="mision" translatable="false">La misión busca sintetizar en un enunciado la razón de ser de la empresa, así como mencionar lo que la organización hace para cumplir y acercarse cada vez más a su propósito. Es el faro que indicará en todo momento la dirección a la que deben apuntar las acciones y las decisiones. Puede ser objeto de las revisiones y cambios que sean necesarios, para adecuarla a las circunstancias cambiantes del entorno.</string>
+    <string name="mision" translatable="false">En MercadoEsclavo creemos que, en los tiempos que corren, nuestros usuarios tienen derecho al uso de aplicaciones de celular sin enterarse que sus datos son usados para todo tipo de fines. Por eso trabajamos apasionadamente día a día para que la privacidad deje de ser algo valorado.
+    </string>
+
+
     <string name="nuestra_vision">Nuestra visión:</string>
-    <string name="vision" translatable="false">La visión plasma el lugar y circunstancia en que la organización quisiera estar en el futuro. Genera en la mente una imagen que inspira a la acción, a través de elementos que la presentan como algo alcanzable. En general, la visión permanecerá fija durante la vida de la empresa.</string>
+    <string name="vision" translatable="false">Somos lo que hacemos. Por eso en el futuro nos vemos como la compañía lider en venta de datos personales de usuarios dentro de toda Latinoamérica.
+
+    </string>
+
+
     <string name="nuestros_valores">Nuestros valores:</string>
-    <string name="valores" translatable="false">Los valores representan todo aquello en lo que se cree y que además se está dispuesto a promover y defender. Son los pilares filosóficos accionables en que se sustenta la “conducta” de la empresa y los cuales se llevan a la práctica tanto al interior, como al exterior de la organización.</string>
+    <string name="valores" translatable="false">Desde MercadoEsclavo abogamos por los derechos de las empresas a manipular los datos personales de sus usuarios, confiamos en la credulidad de la gente al momento de aceptar términos y condiciones sin leer, pero por sobre todo, creemos que se puede lograr una sociedad más justa mediante la desaparición de la privacidad.
+    </string>
+
+
     <string name="creador">Acerca del creador de la app:</string>
-    <string name="creador_jiu" translatable="false">Juani Unzu es un estudiante de desarrollo Android, haciendo sus primeras armas en el mundo de la programación.</string>
+    <string name="creador_jiu" translatable="false">Diseño y desarrollo por Juan Ignacio Unzurrunzaga - github.com/juaniunzu - linkedin.com/in/juanunzu</string>
     <string name="articulos_a_la_venta">Artículos a la venta</string>
     <string name="bienvenido">Bienvenido!</string>
     <string name="visto_recientemente">Visto recientemente</string>
@@ -34,9 +46,9 @@
     <string name="hola">Hola, que bueno verte de nuevo!</string>
     <string name="facebook_app_id" translatable="false">266468817997112</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb266468817997112</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="inicia_sesion">Inicia sesion y veras que tenemos para ofrecerte!</string>
+    <string name="guarda_favoritos">Guarda tus articulos favoritos y veras que tenemos para ofrecerte!</string>
+    <string name="inicio">Inicio</string>
 
 
 </resources>

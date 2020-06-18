@@ -9,10 +9,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#fff"
         android:nestedScrollingEnabled="true"
         android:orientation="vertical"
-        tools:context=".view.DetailFragment"
-        android:background="#fff">
+        tools:context=".view.DetailFragment">
 
         <ImageView
             android:id="@+id/fragmentDetailIndividualImageView"
@@ -50,13 +50,6 @@
             android:gravity="left"
             app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualTextViewPrecio" />
 
-        <Button
-            android:id="@+id/fragmentDetailIndividualButtonComprar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/comprar"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualTextViewDescripcion" />
 
         <Button
             android:id="@+id/fragmentDetailIndividualButtonFavoritos"
@@ -64,35 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="@string/favoritos"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualButtonComprar" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualTextViewDescripcion" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/fragmentDetailIndividualCardViewRelacionados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualButtonFavoritos">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/Headline5ConMargin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/relacionados" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fragmentDetailIndividualRecyclerViewRelacionados"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

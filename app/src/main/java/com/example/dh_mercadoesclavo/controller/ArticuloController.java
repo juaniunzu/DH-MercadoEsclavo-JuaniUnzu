@@ -29,10 +29,10 @@ public class ArticuloController {
         });
     }
 
-    public void getItemsPorQuery(String searchText, Integer limit, final ResultListener<ArticuloContainer> listener){
-        this.articuloApiDao.getItemsPorQuery(searchText, limit, new ResultListener<ArticuloContainer>() {
+    public void getItemsPorQuery(String searchText, Integer limit, String categoria, final ResultListener<List<Articulo>> listener){
+        this.articuloApiDao.getItemsPorQuery(searchText, limit, categoria, new ResultListener<List<Articulo>>() {
             @Override
-            public void onFinish(ArticuloContainer result) {
+            public void onFinish(List<Articulo> result) {
                 listener.onFinish(result);
             }
         });
@@ -78,6 +78,15 @@ public class ArticuloController {
         articuloFirestoreDao.agregarCategoriaFavoritaAFirebase(categoriaPadre, usuarioLogueado, new ResultListener<CategoriaPadre>() {
             @Override
             public void onFinish(CategoriaPadre result) {
+                listener.onFinish(result);
+            }
+        });
+    }
+
+    public void consultarCategoriasEnFirebase(FirebaseUser usuarioLogueado, final ResultListener<List<CategoriaPadre>> listener){
+        articuloFirestoreDao.consultarCategoriasEnFirebase(usuarioLogueado, new ResultListener<List<CategoriaPadre>>() {
+            @Override
+            public void onFinish(List<CategoriaPadre> result) {
                 listener.onFinish(result);
             }
         });

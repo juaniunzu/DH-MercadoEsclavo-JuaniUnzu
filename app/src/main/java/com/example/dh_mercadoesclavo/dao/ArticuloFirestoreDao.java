@@ -73,4 +73,21 @@ public class ArticuloFirestoreDao {
                 });
     }
 
+    public void consultarCategoriasEnFirebase(FirebaseUser usuarioLogueado, final ResultListener<List<CategoriaPadre>> listener){
+        db.collection(NOMBRE)
+                .document(usuarioLogueado.getUid())
+                .collection(CATEGORIAS)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            List<CategoriaPadre> categoriasFirebase = new ArrayList<>();
+                            categoriasFirebase = task.getResult().toObjects(CategoriaPadre.class);
+                            listener.onFinish(categoriasFirebase);
+                        }
+                    }
+                });
+    }
+
 }

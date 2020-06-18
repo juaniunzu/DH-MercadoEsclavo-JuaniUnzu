@@ -21,47 +21,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/fragmentHomeCardViewReciente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragmentHomeBienvenido">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/Headline5ConMargin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/visto_recientemente" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fragmentHomeRecyclerViewRecientes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/fragmentHomeCardViewRecientesTextViewHistorial"
-                    style="@style/Subtitle1Clickable"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:text="@string/ver_historial" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
             android:id="@+id/fragmentHomeCardViewRecomendados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewReciente">
+            app:layout_constraintTop_toBottomOf="@id/fragmentHomeBienvenido">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,86 +43,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/fragmentHomeCardViewRecomendadosTextViewVerMas"
-                    style="@style/Subtitle1Clickable"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:text="@string/ver_mas" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/fragmentHomeCardViewPorqueVisitaste"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewRecomendados">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/Headline5ConMargin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/porque_visitaste" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fragmentHomeRecyclerViewPorqueVisitaste"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/fragmentHomeCardViewPorqueVisitasteTextViewVerMas"
-                    style="@style/Subtitle1Clickable"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:text="@string/ver_mas" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/fragmentHomeCardViewFavorito"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewPorqueVisitaste">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/Headline5ConMargin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tus_favoritos" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fragmentHomeRecyclerViewFavorito"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/fragmentHomeCardViewFavoritoTextViewVerMas"
-                    style="@style/Subtitle1Clickable"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:text="@string/ver_mas" />
 
             </LinearLayout>
 
@@ -169,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewFavorito">
+            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewRecomendados">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -187,16 +71,55 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/fragmentHomeCardViewElegidosTextViewVerMas"
-                    style="@style/Subtitle1Clickable"
-                    android:clickable="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="@string/ver_mas" />
 
             </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fragmentHomeCardViewIniciaSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewRecomendados">
+
+            <TextView
+                android:id="@+id/fragmentHomeTextViewIniciaSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/inicia_sesion"
+                android:textSize="16dp" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fragmentHomeCardViewAgregaFavoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewRecomendados">
+
+            <TextView
+                android:id="@+id/fragmentHomeTextViewAgregaFavoritos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/guarda_favoritos" />
+
 
         </androidx.cardview.widget.CardView>
 

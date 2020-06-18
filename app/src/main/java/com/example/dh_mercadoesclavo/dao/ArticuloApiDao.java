@@ -51,14 +51,14 @@ public class ArticuloApiDao extends RetrofitDao{
         });
     }
 
-    public void getItemsPorQuery(String searchText, Integer limit, final ResultListener<ArticuloContainer> resultListener){
-        Call<ArticuloContainer> call = this.articuloService.getItemsPorQuery(searchText, limit);
+    public void getItemsPorQuery(String searchText, Integer limit, String categoria, final ResultListener<List<Articulo>> resultListener){
+        Call<ArticuloContainer> call = this.articuloService.getItemsPorQuery(searchText, limit, categoria);
         call.enqueue(new Callback<ArticuloContainer>() {
             @Override
             public void onResponse(Call<ArticuloContainer> call, Response<ArticuloContainer> response) {
                 if(response.isSuccessful()){
                     ArticuloContainer articuloContainer = response.body();
-                    resultListener.onFinish(articuloContainer);
+                    resultListener.onFinish(articuloContainer.getResults());
                 } else {
                     response.errorBody();
                 }
