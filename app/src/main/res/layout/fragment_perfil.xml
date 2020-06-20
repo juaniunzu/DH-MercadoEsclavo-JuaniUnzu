@@ -118,65 +118,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutConsultas"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:clickable="true"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutFavoritos">
-
-        <ImageView
-            android:id="@+id/imageViewConsultas"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_mode_comment_black_24dp" />
-
-        <TextView
-            android:id="@+id/textViewConsultas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:text="Mis consultas" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutHistorial"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:clickable="true"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutConsultas">
-
-        <ImageView
-            android:id="@+id/imageViewHistorial"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_eye_black_24dp" />
-
-        <TextView
-            android:id="@+id/textViewHistorial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:text="Mis historial de visitados" />
-
-    </LinearLayout>
-
-
     <View
         android:id="@+id/viewSeparador2"
         android:layout_width="match_parent"
@@ -184,8 +125,8 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:background="#AEAEAE"
-        app:layout_constraintStart_toStartOf="@id/layoutHistorial"
-        app:layout_constraintTop_toBottomOf="@id/layoutHistorial" />
+        app:layout_constraintStart_toStartOf="@id/layoutFavoritos"
+        app:layout_constraintTop_toBottomOf="@id/layoutFavoritos" />
 
     <LinearLayout
         android:id="@+id/layoutCerrarSesion"

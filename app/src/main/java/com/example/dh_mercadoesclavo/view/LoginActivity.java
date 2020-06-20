@@ -231,7 +231,6 @@ public class LoginActivity extends AppCompatActivity implements SignUpFragment.S
         try {
             account = task.getResult(ApiException.class);
             Log.d(TAG, "firebaseAuthWithGoogle: " + account.getId());
-            firebaseAuthWithGoogle(account.getIdToken());
             // Signed in successfully, show authenticated UI.
             firebaseAuthWithGoogle(account.getIdToken());
         } catch (ApiException e) {
