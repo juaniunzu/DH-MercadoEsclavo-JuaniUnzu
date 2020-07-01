@@ -158,7 +158,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
     @Override
     public void onClickHomeFragmentRecomendados(Articulo unArticulo, List<Articulo> articuloList) {
-        pegarFragment(DetailIndividualFragment.crearDetailIndividualFragment(unArticulo, this));
+        Intent mainADetail = new Intent(this, DetailActivity.class);
+        Bundle mainADetalle = new Bundle();
+        mainADetalle.putSerializable("articulo", unArticulo);
+        mainADetalle.putSerializable("lista", (ArrayList) articuloList);
+        mainADetail.putExtras(mainADetalle);
+        startActivity(mainADetail);
     }
 
     @Override
@@ -185,19 +190,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
             @Override
             public void onFinish(List<Articulo> result) {
                 if (result.size() > 0) {
-
                     pegarFragment(new FavoritosFragment(result, MainActivity.this));
-
-                    /*Intent mainADetail = new Intent(MainActivity.this, DetailActivity.class);
-                    Bundle mainADetalle = new Bundle();
-                    mainADetalle.putSerializable("articulo", result.get(0));
-                    mainADetalle.putSerializable("lista", (ArrayList) result);
-                    mainADetail.putExtras(mainADetalle);
-                    startActivity(mainADetail);*/
                 } else {
                     Toast.makeText(MainActivity.this, "Todavia no agregaste favoritos", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }

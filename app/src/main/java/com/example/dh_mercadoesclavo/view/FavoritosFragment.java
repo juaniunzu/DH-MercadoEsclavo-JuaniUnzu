@@ -49,7 +49,6 @@ public class FavoritosFragment extends Fragment implements FavoritosAdapter.Favo
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(favoritosAdapter);
 
-
         return view;
     }
 
