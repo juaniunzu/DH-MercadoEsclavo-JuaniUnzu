@@ -10,11 +10,14 @@
         android:id="@+id/activityDetailToolBar"
         layout="@layout/my_toolbar" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/activityDetailViewPager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/activityDetailToolBar"
-        app:layout_constraintStart_toStartOf="parent"/>
+    <FrameLayout
+        android:id="@+id/activityDetailFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activityDetailToolBar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

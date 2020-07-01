@@ -22,6 +22,8 @@ public class Articulo implements Serializable {
     private String descripcion;
     private Boolean disponibleParaEnvios;
     private List<Pic> pictures;
+    @SerializedName("seller_address")
+    private ItemSellerAddress sellerAddress;
     private Geolocation geolocation;
     @SerializedName("category_id")
     private String categoryId;
@@ -29,7 +31,7 @@ public class Articulo implements Serializable {
     public Articulo() {
     }
 
-    public Articulo(String id, String title, Double price, String condition, String foto, String nombre, String precio, Integer imagen, String descripcion, Boolean disponibleParaEnvios, List<Pic> pictures, Geolocation geolocation, String categoryId) {
+    public Articulo(String id, String title, Double price, String condition, String foto, String nombre, String precio, Integer imagen, String descripcion, Boolean disponibleParaEnvios, List<Pic> pictures, ItemSellerAddress sellerAddress, Geolocation geolocation, String categoryId) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -41,6 +43,7 @@ public class Articulo implements Serializable {
         this.descripcion = descripcion;
         this.disponibleParaEnvios = disponibleParaEnvios;
         this.pictures = pictures;
+        this.sellerAddress = sellerAddress;
         this.geolocation = geolocation;
         this.categoryId = categoryId;
     }
@@ -67,6 +70,14 @@ public class Articulo implements Serializable {
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.disponibleParaEnvios = disponibleParaEnvios;
+    }
+
+    public ItemSellerAddress getSellerAddress() {
+        return sellerAddress;
+    }
+
+    public void setSellerAddress(ItemSellerAddress sellerAddress) {
+        this.sellerAddress = sellerAddress;
     }
 
     public List<Pic> getPictures() {

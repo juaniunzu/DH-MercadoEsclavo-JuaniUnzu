@@ -49,6 +49,11 @@
     <string name="inicia_sesion">Inicia sesion y veras que tenemos para ofrecerte!</string>
     <string name="guarda_favoritos">Guarda tus articulos favoritos y veras que tenemos para ofrecerte!</string>
     <string name="inicio">Inicio</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="location">Ver ubicacion</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

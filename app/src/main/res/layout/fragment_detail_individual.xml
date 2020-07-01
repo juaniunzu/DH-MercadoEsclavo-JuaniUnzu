@@ -59,6 +59,13 @@
             android:text="@string/favoritos"
             app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualTextViewDescripcion" />
 
+        <Button
+            android:id="@+id/fragmentDetailIndividualButtonUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/location"
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualButtonFavoritos" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

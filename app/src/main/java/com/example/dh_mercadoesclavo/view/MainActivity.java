@@ -32,7 +32,7 @@ import java.util.List;
 
 import okhttp3.internal.Util;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener, PerfilFragment.PerfilFragmentListener, DetailIndividualFragment.DetailIndividualFragmentListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener, PerfilFragment.PerfilFragmentListener, DetailIndividualFragment.DetailIndividualFragmentListener, FavoritosFragment.FavoritosFragmentListener {
 
     private DrawerLayout activityMainDrawerLayout;
     private NavigationView activityMainNavigationView;
@@ -113,6 +113,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.navigationMenuMaps:
+                Intent intent2 = new Intent(this, MapsActivity.class);
+                startActivity(intent2);
+                activityMainDrawerLayout.closeDrawers();
+                break;
             case R.id.navigationMenuAboutUs:
                 reemplazarFragment(new AboutUsFragment());
                 activityMainDrawerLayout.closeDrawers();
@@ -180,12 +185,15 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
             @Override
             public void onFinish(List<Articulo> result) {
                 if (result.size() > 0) {
-                    Intent mainADetail = new Intent(MainActivity.this, DetailActivity.class);
+
+                    pegarFragment(new FavoritosFragment(result, MainActivity.this));
+
+                    /*Intent mainADetail = new Intent(MainActivity.this, DetailActivity.class);
                     Bundle mainADetalle = new Bundle();
                     mainADetalle.putSerializable("articulo", result.get(0));
                     mainADetalle.putSerializable("lista", (ArrayList) result);
                     mainADetail.putExtras(mainADetalle);
-                    startActivity(mainADetail);
+                    startActivity(mainADetail);*/
                 } else {
                     Toast.makeText(MainActivity.this, "Todavia no agregaste favoritos", Toast.LENGTH_SHORT).show();
                 }
@@ -226,5 +234,23 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onClickButtonUbicacionDetailIndividualFragment(Articulo articulo) {
+        Intent mainAMaps = new Intent(this, MapsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("articulo", articulo);
+        mainAMaps.putExtras(bundle);
+        startActivity(mainAMaps);
+    }
+
+    @Override
+    public void onClickArticuloFavoritosFragment(Articulo articulo) {
+        Intent mainADetail = new Intent(this, DetailActivity.class);
+        Bundle mainADetalle = new Bundle();
+        mainADetalle.putSerializable("articulo", articulo);
+        mainADetail.putExtras(mainADetalle);
+        startActivity(mainADetail);
     }
 }

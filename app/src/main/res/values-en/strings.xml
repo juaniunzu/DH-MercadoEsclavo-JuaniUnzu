@@ -28,4 +28,5 @@
     <string name="inicia_sesion">Log in and you\'ll see what we have to offer to you!</string>
     <string name="guarda_favoritos">Save your favorites and you\'ll see what we have to offer to you!</string>
     <string name="inicio">Start</string>
+    <string name="location">See location</string>
 </resources>

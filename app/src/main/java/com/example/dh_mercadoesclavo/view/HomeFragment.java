@@ -109,9 +109,6 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     }
 
 
-
-
-
     private void setRecomendadosRecyclerView() {
         final ArticuloController articuloController = new ArticuloController();
         articuloController.getFender(new ResultListener<List<Articulo>>() {
@@ -155,7 +152,6 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
 
     public interface ArticuloHomeFragmentListener {
         void onClickHomeFragmentRecomendados(Articulo unArticulo, List<Articulo> articuloList);
-
         void onClickHomeFragmentElegidos(Articulo articulo, List<Articulo> articuloList);
     }
 }

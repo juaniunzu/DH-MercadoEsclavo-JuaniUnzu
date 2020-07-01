@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 import com.example.dh_mercadoesclavo.R;
@@ -23,6 +24,7 @@ public class DetailIndividualFragment extends Fragment {
 
     private FragmentDetailIndividualBinding binding;
     private DetailIndividualFragmentListener listener;
+    private Button buttonUbicacion;
 
     public DetailIndividualFragment() {
         // Required empty public constructor
@@ -50,16 +52,24 @@ public class DetailIndividualFragment extends Fragment {
 
         Bundle bundle = getArguments();
         final Articulo articulo = (Articulo) bundle.getSerializable("articulo");
+        buttonUbicacion = binding.fragmentDetailIndividualButtonUbicacion;
 
         ArticuloController articuloController = new ArticuloController();
         articuloController.getItemsPorId(articulo.getId(), new ResultListener<Articulo>() {
             @Override
-            public void onFinish(Articulo result) {
+            public void onFinish(final Articulo result) {
 
                 Glide.with(getActivity()).load(result.getPictures().get(0).getUrl()).into(binding.fragmentDetailIndividualImageView);
                 binding.fragmentDetailIndividualTextViewNombre.setText(result.getTitle());
                 binding.fragmentDetailIndividualTextViewPrecio.setText(String.format(getContext().getResources().getString(R.string.valor), result.getPrice().toString()));
                 binding.fragmentDetailIndividualTextViewDescripcion.setText(result.getDescripcion());
+
+                buttonUbicacion.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onClickButtonUbicacionDetailIndividualFragment(result);
+                    }
+                });
             }
         });
 
@@ -70,16 +80,11 @@ public class DetailIndividualFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
         return view;
     }
 
     public interface DetailIndividualFragmentListener{
         void onClickButtonFavoritosDetailIndividualFragment(Articulo articulo);
+        void onClickButtonUbicacionDetailIndividualFragment(Articulo articulo);
     }
 }

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -28,9 +30,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailActivity extends AppCompatActivity implements DetailFragment.DetailFragmentListener {
+public class DetailActivity extends AppCompatActivity implements DetailIndividualFragment.DetailIndividualFragmentListener {
 
-    private ViewPager viewPager;
     private Toolbar toolbar;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -40,8 +41,6 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        viewPager = findViewById(R.id.activityDetailViewPager);
 
         toolbar = findViewById(R.id.activityDetailToolBar);
         setSupportActionBar(toolbar);
@@ -53,26 +52,49 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
         Bundle datosDesdeMain = desdeMain.getExtras();
 
         Articulo articuloClickeado = (Articulo) datosDesdeMain.getSerializable("articulo");
-        ArrayList<Articulo> articuloArrayList = (ArrayList<Articulo>) datosDesdeMain.getSerializable("lista");
-        List<Fragment> listaFragmentsViewPager = generarFragments(articuloArrayList);
+        ArticuloController articuloController = new ArticuloController();
+        articuloController.getItemsPorId(articuloClickeado.getId(), new ResultListener<Articulo>() {
+            @Override
+            public void onFinish(Articulo result) {
+                pegarFragment(DetailIndividualFragment.crearDetailIndividualFragment(result, DetailActivity.this));
+            }
+        });
 
-        Integer indice = articuloArrayList.indexOf(articuloClickeado);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), listaFragmentsViewPager);
-        viewPager.setAdapter(viewPagerAdapter);
-        viewPager.setCurrentItem(indice);
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+    }
+
+    private void pegarFragment(Fragment unFragment) {
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.activityDetailFragmentContainer, unFragment).addToBackStack("add");
+        fragmentTransaction.commit();
+    }
 
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        return true;
     }
 
     @Override
-    public void onClickButtonFavoritosDetailFragment(final Articulo articulo) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+        }
+
+        return true;
+    }
+
+
+    @Override
+    public void onClickButtonFavoritosDetailIndividualFragment(Articulo articulo) {
         final ArticuloController articuloController = new ArticuloController();
         if(currentUser != null){
 
@@ -104,35 +126,14 @@ public class DetailActivity extends AppCompatActivity implements DetailFragment.
             Intent intent = new Intent(DetailActivity.this, LoginActivity.class);
             startActivity(intent);
         }
-
-    }
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_app_bar, menu);
-        return true;
-    }
-
-    private List<Fragment> generarFragments(List<Articulo> articuloList){
-        List<Fragment> listaADevolver = new ArrayList<>();
-        for (Articulo articulo : articuloList) {
-            Fragment fragment = DetailFragment.crearDetailFragment(articulo, this);
-            listaADevolver.add(fragment);
-        }
-        return listaADevolver;
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-        }
-
-        return true;
+    public void onClickButtonUbicacionDetailIndividualFragment(Articulo articulo) {
+        Intent detailAMaps = new Intent(this, MapsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("articulo", articulo);
+        detailAMaps.putExtras(bundle);
+        startActivity(detailAMaps);
     }
-
-
 }

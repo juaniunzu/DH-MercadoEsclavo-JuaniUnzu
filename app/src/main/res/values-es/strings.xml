@@ -28,4 +28,5 @@
     <string name="inicia_sesion">Inicia sesion y veras que tenemos para ofrecerte!</string>
     <string name="guarda_favoritos">Guarda tus articulos favoritos y veras que tenemos para ofrecerte!</string>
     <string name="inicio">Inicio</string>
+    <string name="location">Ver ubicación</string>
 </resources>
