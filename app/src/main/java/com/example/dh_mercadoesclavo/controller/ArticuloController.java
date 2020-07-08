@@ -32,37 +32,11 @@ public class ArticuloController {
         });
     }
 
-    public void getItemsPorQuery(String searchText, Integer pageSize, Integer offset, String categoria, final ResultListener<List<Articulo>> listener){
-        this.articuloApiDao.getItemsPorQuery(searchText, pageSize, offset, categoria, new ResultListener<List<Articulo>>() {
+    public void getItemsPorQuery(String searchText, Integer pageSize, Integer offset, String price, final ResultListener<ArticuloContainer> listener){
+        this.articuloApiDao.getItemsPorQuery(searchText, pageSize, offset, price, new ResultListener<ArticuloContainer>() {
             @Override
-            public void onFinish(List<Articulo> result) {
+            public void onFinish(ArticuloContainer result) {
                 listener.onFinish(result);
-            }
-        });
-    }
-
-    public void getItemsPorQueryPaginado(String searchText, String categoria, final ResultListener<List<Articulo>> listener){
-        this.articuloApiDao.getItemsPorQuery(searchText, PAGE_SIZE, offset, categoria, new ResultListener<List<Articulo>>() {
-            @Override
-            public void onFinish(List<Articulo> result) {
-                if(result.size() < PAGE_SIZE){
-                    hayMasResultados = false;
-                }
-                listener.onFinish(result);
-                offset += PAGE_SIZE;
-            }
-        });
-    }
-
-    public Boolean getHayMasResultados() {
-        return hayMasResultados;
-    }
-
-    public void getFender(final ResultListener<List<Articulo>> resultListenerDeLaView){
-        this.articuloApiDao.getFender(new ResultListener<List<Articulo>>() {
-            @Override
-            public void onFinish(List<Articulo> result) {
-                resultListenerDeLaView.onFinish(result);
             }
         });
     }

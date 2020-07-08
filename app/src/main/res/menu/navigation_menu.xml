@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <item
@@ -17,11 +18,5 @@
         android:id="@+id/navigationMenuPerfil"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="@string/perfil" />
-
-    <item
-        android:id="@+id/navigationMenuMaps"
-        android:icon="@drawable/ic_person_black_24dp"
-        android:title="maps" />
-
 
 </menu>

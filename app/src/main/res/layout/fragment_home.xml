@@ -16,7 +16,9 @@
             style="@style/Headline4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
             android:text="@string/bienvenido"
+            android:textSize="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,102 +29,136 @@
             android:layout_margin="8dp"
             app:layout_constraintTop_toBottomOf="@id/fragmentHomeBienvenido">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/fragmentHomeTextViewRecomendados"
                     style="@style/Headline5ConMargin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/recomendados" />
+                    android:text="@string/recomendados"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fragmentHomeImageViewFiltrar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_filter_list_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="@id/fragmentHomeTextViewRecomendados"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/fragmentHomeTextViewRecomendados" />
+
+                <TextView
+                    android:id="@+id/fragmentHomeTextViewRango"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/filtra_por_precio"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="@id/fragmentHomeTextViewRecomendados"
+                    app:layout_constraintTop_toBottomOf="@id/fragmentHomeTextViewRecomendados" />
+
+                <TextView
+                    android:id="@+id/fragmentHomeTextViewEntre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/entre"
+                    app:layout_constraintStart_toStartOf="@id/fragmentHomeTextViewRango"
+                    app:layout_constraintTop_toBottomOf="@id/fragmentHomeTextViewRango" />
+
+                <EditText
+                    android:id="@+id/fragmentHomeEditTextMenorQue"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:hint="$"
+                    android:inputType="number"
+                    app:layout_constraintBottom_toBottomOf="@id/fragmentHomeTextViewEntre"
+                    app:layout_constraintStart_toEndOf="@id/fragmentHomeTextViewEntre"
+                    app:layout_constraintTop_toTopOf="@id/fragmentHomeTextViewEntre" />
+
+                <TextView
+                    android:id="@+id/fragmentHomeTextViewY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/y"
+                    app:layout_constraintBottom_toBottomOf="@id/fragmentHomeTextViewEntre"
+                    app:layout_constraintStart_toEndOf="@id/fragmentHomeEditTextMenorQue"
+                    app:layout_constraintTop_toTopOf="@id/fragmentHomeTextViewEntre" />
+
+                <EditText
+                    android:id="@+id/fragmentHomeEditTextMayorQue"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:hint="$"
+                    android:inputType="number"
+                    app:layout_constraintBottom_toBottomOf="@id/fragmentHomeEditTextMenorQue"
+                    app:layout_constraintStart_toEndOf="@id/fragmentHomeTextViewY"
+                    app:layout_constraintTop_toTopOf="@id/fragmentHomeEditTextMenorQue" />
+
+                <Button
+                    android:id="@+id/fragmentHomeButtonAplicarFiltro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/aplicar"
+                    app:layout_constraintBottom_toBottomOf="@id/fragmentHomeTextViewEntre"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/fragmentHomeEditTextMayorQue"
+                    app:layout_constraintTop_toTopOf="@id/fragmentHomeTextViewEntre" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragmentHomeRecyclerViewRecomendados"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/fragmentHomeCardViewElegidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewRecomendados">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/Headline5ConMargin"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/elegidos" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fragmentHomeRecyclerViewElegidos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="@id/fragmentHomeTextViewRecomendados"
+                    app:layout_constraintTop_toBottomOf="@id/fragmentHomeEditTextMenorQue" />
 
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/fragmentHomeCardViewIniciaSesion"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/fragmentHomeTextViewPaginado"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            android:text="Pagina algo de algo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewRecomendados">
+            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewRecomendados" />
 
-            <TextView
-                android:id="@+id/fragmentHomeTextViewIniciaSesion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/inicia_sesion"
-                android:textSize="16dp" />
+        <ImageView
+            android:id="@+id/fragmentHomePaginadoAnterior"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentHomeTextViewPaginado"
+            app:layout_constraintEnd_toStartOf="@id/fragmentHomeTextViewPaginado"
+            app:layout_constraintTop_toTopOf="@id/fragmentHomeTextViewPaginado" />
 
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/fragmentHomeCardViewAgregaFavoritos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragmentHomeCardViewRecomendados">
-
-            <TextView
-                android:id="@+id/fragmentHomeTextViewAgregaFavoritos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/guarda_favoritos" />
-
-
-        </androidx.cardview.widget.CardView>
-
+        <ImageView
+            android:id="@+id/fragmentHomePaginadoSiguiente"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_forward_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentHomeTextViewPaginado"
+            app:layout_constraintStart_toEndOf="@id/fragmentHomeTextViewPaginado"
+            app:layout_constraintTop_toTopOf="@id/fragmentHomeTextViewPaginado" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

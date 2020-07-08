@@ -117,7 +117,7 @@
             android:id="@+id/fragmentSignup_TextInputEditTextUsername"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Email"
+            android:hint="@string/email"
             android:textColorHint="#000" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +135,7 @@
             android:id="@+id/fragmentSignup_TextInputEditTextPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Contraseña"
+            android:hint="@string/contraseña"
             android:textColorHint="#000" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,7 +146,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:elevation="5dp"
-        android:text="Registrarse"
+        android:text="@string/registrarse"
         android:textColor="#000"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"

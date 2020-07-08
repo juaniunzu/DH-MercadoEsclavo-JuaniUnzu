@@ -12,15 +12,25 @@ public class ArticuloContainer implements Serializable {
     private String query;
     private List<Articulo> results;
     private List<ArticuloContainerFilters> filters;
+    private Paging paging;
 
-    public ArticuloContainer(String siteId, String query, List<Articulo> results, List<ArticuloContainerFilters> filters) {
+    public ArticuloContainer(String siteId, String query, List<Articulo> results, List<ArticuloContainerFilters> filters, Paging paging) {
         this.siteId = siteId;
         this.query = query;
         this.results = results;
         this.filters = filters;
+        this.paging = paging;
     }
 
     public ArticuloContainer() {
+    }
+
+    public Paging getPaging() {
+        return paging;
+    }
+
+    public void setPaging(Paging paging) {
+        this.paging = paging;
     }
 
     public List<ArticuloContainerFilters> getFilters() {

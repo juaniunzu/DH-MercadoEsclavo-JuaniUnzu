@@ -51,9 +51,18 @@
     <string name="inicio">Inicio</string>
     <string name="title_activity_maps" translatable="false">Map</string>
     <string name="location">Ver ubicacion</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="mis_favoritos">Mis favoritos</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="bienvenido_a_mercadoesclavo">Bienvenido a MercadoEsclavo!</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="bienvenido_de_nuevo">Bienvenido de nuevo!</string>
+    <string name="filtra_por_precio">Filtrá por precio</string>
+    <string name="entre">Entre</string>
+    <string name="y">y</string>
+    <string name="aplicar">Aplicar</string>
 
 
 </resources>

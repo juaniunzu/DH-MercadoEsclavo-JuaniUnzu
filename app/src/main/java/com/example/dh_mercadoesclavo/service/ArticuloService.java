@@ -30,7 +30,7 @@ public interface ArticuloService {
             @Query("q") String searchText,
             @Query("limit") Integer limit,
             @Query("offset") Integer offset,
-            @Query("category") String categoria);
+            @Query("price") String price);
 
     @GET("categories/{id}")
     Call<CategoriaPadre> getCategoriasPorId(@Path("id") String id);

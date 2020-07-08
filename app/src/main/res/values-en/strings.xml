@@ -29,4 +29,15 @@
     <string name="guarda_favoritos">Save your favorites and you\'ll see what we have to offer to you!</string>
     <string name="inicio">Start</string>
     <string name="location">See location</string>
+    <string name="registrarse">Register</string>
+    <string name="contraseña">Password</string>
+    <string name="mis_favoritos">My favorites</string>
+    <string name="cerrar_sesion">Log out</string>
+    <string name="bienvenido_a_mercadoesclavo">Welcome to MercadoEsclavo!</string>
+    <string name="iniciar_sesion">Log in</string>
+    <string name="bienvenido_de_nuevo">Welcome again!</string>
+    <string name="filtra_por_precio">Filter by price</string>
+    <string name="entre">Between</string>
+    <string name="y">and</string>
+    <string name="aplicar">Apply</string>
 </resources>

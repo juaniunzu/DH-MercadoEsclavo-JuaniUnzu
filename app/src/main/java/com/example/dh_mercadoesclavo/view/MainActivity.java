@@ -1,6 +1,7 @@
 package com.example.dh_mercadoesclavo.view;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
         setSupportActionBar(activityMainToolBar);
         getSupportActionBar().setTitle("Mercado Esclavo");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, activityMainDrawerLayout, activityMainToolBar, R.string.open_drawers, R.string.close_drawers);
         activityMainDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -112,10 +115,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.navigationMenuMaps:
-                //sacar esta opcion del menu
-                activityMainDrawerLayout.closeDrawers();
-                break;
             case R.id.navigationMenuAboutUs:
                 reemplazarFragment(new AboutUsFragment());
                 activityMainDrawerLayout.closeDrawers();
@@ -123,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
             case R.id.navigationMenuInicio:
                 reemplazarFragment(new HomeFragment());
                 activityMainDrawerLayout.closeDrawers();
+                break;
             case R.id.topAppBarSearch:
                 break;
             case R.id.navigationMenuPerfil:

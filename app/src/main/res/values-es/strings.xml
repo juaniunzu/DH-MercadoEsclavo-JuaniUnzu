@@ -29,4 +29,15 @@
     <string name="guarda_favoritos">Guarda tus articulos favoritos y veras que tenemos para ofrecerte!</string>
     <string name="inicio">Inicio</string>
     <string name="location">Ver ubicación</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="mis_favoritos">Mis favoritos</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="bienvenido_a_mercadoesclavo">Bienvenido a MercadoEsclavo!</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="bienvenido_de_nuevo">Bienvenido de nuevo!</string>
+    <string name="filtra_por_precio">Filtrá por precio</string>
+    <string name="entre">Entre</string>
+    <string name="y">y</string>
+    <string name="aplicar">Aplicar</string>
 </resources>
