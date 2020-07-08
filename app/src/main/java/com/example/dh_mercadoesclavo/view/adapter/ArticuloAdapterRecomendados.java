@@ -52,6 +52,11 @@ public class ArticuloAdapterRecomendados extends RecyclerView.Adapter<ArticuloAd
         return this.listaArticulos.size();
     }
 
+    public void addArticuloList(List<Articulo> articuloList){
+        listaArticulos.addAll(articuloList);
+        notifyDataSetChanged();
+    }
+
     protected class ArticuloRecomendadosViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView celdaArticulo2ImageView;

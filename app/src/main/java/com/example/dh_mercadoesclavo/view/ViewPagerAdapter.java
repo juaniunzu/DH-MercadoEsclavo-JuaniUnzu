@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<Fragment> fragmentList;
+    private List<ImagenFragment> fragmentList;
 
 
-    public ViewPagerAdapter(@NonNull FragmentManager fm, List<Fragment> fragmentList) {
+    public ViewPagerAdapter(@NonNull FragmentManager fm, List<ImagenFragment> fragmentList) {
         super(fm);
         this.fragmentList = fragmentList;
 
@@ -29,7 +29,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return this.fragmentList.size();
     }
 
-    public void addFragment(Fragment fragment){
-        this.fragmentList.add(fragment);
+    public List<ImagenFragment> getFragmentList() {
+        return fragmentList;
+    }
+
+    public void setFragmentList(List<ImagenFragment> fragmentList) {
+        this.fragmentList = fragmentList;
     }
 }

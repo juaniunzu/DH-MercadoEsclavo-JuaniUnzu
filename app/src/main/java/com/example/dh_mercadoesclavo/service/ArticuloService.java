@@ -1,6 +1,8 @@
 package com.example.dh_mercadoesclavo.service;
 
 
+import android.content.Intent;
+
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.ArticuloContainer;
 import com.example.dh_mercadoesclavo.model.CategoriaPadre;
@@ -27,6 +29,7 @@ public interface ArticuloService {
     Call<ArticuloContainer> getItemsPorQuery(
             @Query("q") String searchText,
             @Query("limit") Integer limit,
+            @Query("offset") Integer offset,
             @Query("category") String categoria);
 
     @GET("categories/{id}")

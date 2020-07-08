@@ -14,6 +14,9 @@ public class ArticuloController {
 
     private ArticuloApiDao articuloApiDao;
     private ArticuloFirestoreDao articuloFirestoreDao;
+    private Integer offset = 0;
+    private static final Integer PAGE_SIZE = 10;
+    private Boolean hayMasResultados = true;
 
     public ArticuloController() {
         this.articuloApiDao = new ArticuloApiDao();
@@ -29,13 +32,30 @@ public class ArticuloController {
         });
     }
 
-    public void getItemsPorQuery(String searchText, Integer limit, String categoria, final ResultListener<List<Articulo>> listener){
-        this.articuloApiDao.getItemsPorQuery(searchText, limit, categoria, new ResultListener<List<Articulo>>() {
+    public void getItemsPorQuery(String searchText, Integer pageSize, Integer offset, String categoria, final ResultListener<List<Articulo>> listener){
+        this.articuloApiDao.getItemsPorQuery(searchText, pageSize, offset, categoria, new ResultListener<List<Articulo>>() {
             @Override
             public void onFinish(List<Articulo> result) {
                 listener.onFinish(result);
             }
         });
+    }
+
+    public void getItemsPorQueryPaginado(String searchText, String categoria, final ResultListener<List<Articulo>> listener){
+        this.articuloApiDao.getItemsPorQuery(searchText, PAGE_SIZE, offset, categoria, new ResultListener<List<Articulo>>() {
+            @Override
+            public void onFinish(List<Articulo> result) {
+                if(result.size() < PAGE_SIZE){
+                    hayMasResultados = false;
+                }
+                listener.onFinish(result);
+                offset += PAGE_SIZE;
+            }
+        });
+    }
+
+    public Boolean getHayMasResultados() {
+        return hayMasResultados;
     }
 
     public void getFender(final ResultListener<List<Articulo>> resultListenerDeLaView){

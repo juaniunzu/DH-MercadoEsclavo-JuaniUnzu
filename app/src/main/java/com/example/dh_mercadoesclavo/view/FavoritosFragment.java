@@ -2,6 +2,7 @@ package com.example.dh_mercadoesclavo.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.R;
 import com.example.dh_mercadoesclavo.model.Articulo;
@@ -44,10 +46,11 @@ public class FavoritosFragment extends Fragment implements FavoritosAdapter.Favo
         recyclerView = view.findViewById(R.id.fragmentFavoritosRecyclerView);
 
         FavoritosAdapter favoritosAdapter = new FavoritosAdapter(articuloList, this);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        final LinearLayoutManager llm = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
 
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(favoritosAdapter);
+
 
         return view;
     }

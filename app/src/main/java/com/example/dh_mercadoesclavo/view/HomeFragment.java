@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dh_mercadoesclavo.controller.ArticuloController;
 import com.example.dh_mercadoesclavo.databinding.FragmentHomeBinding;
@@ -25,6 +26,7 @@ import com.example.dh_mercadoesclavo.view.adapter.ArticuloAdapterRecomendados;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,6 +43,8 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     private FragmentHomeBinding binding;
     private CardView agregaFavoritos;
     private CardView iniciaSesion;
+    private ArticuloAdapterRecomendados adapterRecyclerRecomendados;
+    private ArticuloController articuloController;
 
 
     public HomeFragment() {
@@ -56,12 +60,20 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
 
         View view = binding.getRoot();
 
+        articuloController = new ArticuloController();
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
         findViews();
 
         agregaFavoritos.setVisibility(View.GONE);
+
+        adapterRecyclerRecomendados = new ArticuloAdapterRecomendados(new ArrayList<Articulo>(), HomeFragment.this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        fragmentHomeRecyclerViewRecomendados.setLayoutManager(linearLayoutManager);
+        fragmentHomeRecyclerViewRecomendados.setAdapter(adapterRecyclerRecomendados);
+
 
 
         setRecomendadosRecyclerView();
@@ -77,14 +89,12 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
     }
 
     private void setElegidosRecyclerView() {
-        final ArticuloController articuloController = new ArticuloController();
-
         articuloController.consultarCategoriasEnFirebase(currentUser, new ResultListener<List<CategoriaPadre>>() {
 
             @Override
             public void onFinish(List<CategoriaPadre> resulta) {
                 if(resulta.size() > 0){
-                    articuloController.getItemsPorQuery("", 10, resulta.get(0).getPathFromRoot().get(0).getId(), new ResultListener<List<Articulo>>() {
+                    articuloController.getItemsPorQuery("", 10, 0, resulta.get(0).getPathFromRoot().get(0).getId(), new ResultListener<List<Articulo>>() {
 
                         @Override
                         public void onFinish(List<Articulo> result) {
@@ -110,18 +120,16 @@ public class HomeFragment extends Fragment implements ArticuloAdapterRecomendado
 
 
     private void setRecomendadosRecyclerView() {
-        final ArticuloController articuloController = new ArticuloController();
-        articuloController.getFender(new ResultListener<List<Articulo>>() {
-            @Override
-            public void onFinish(List<Articulo> result) {
+        if(articuloController.getHayMasResultados()){
+            articuloController.getItemsPorQueryPaginado("fender jazz bass", null, new ResultListener<List<Articulo>>() {
+                @Override
+                public void onFinish(List<Articulo> result) {
 
-                ArticuloAdapterRecomendados adapterRecyclerRecomendados = new ArticuloAdapterRecomendados(result, HomeFragment.this);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-                fragmentHomeRecyclerViewRecomendados.setLayoutManager(linearLayoutManager);
-                fragmentHomeRecyclerViewRecomendados.setAdapter(adapterRecyclerRecomendados);
+                    adapterRecyclerRecomendados.addArticuloList(result);
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override

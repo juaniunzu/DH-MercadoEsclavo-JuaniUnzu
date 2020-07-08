@@ -30,7 +30,6 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.internal.Util;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.ArticuloHomeFragmentListener, NavigationView.OnNavigationItemSelectedListener, PerfilFragment.PerfilFragmentListener, DetailIndividualFragment.DetailIndividualFragmentListener, FavoritosFragment.FavoritosFragmentListener {
 
@@ -114,8 +113,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Arti
 
         switch (item.getItemId()) {
             case R.id.navigationMenuMaps:
-                Intent intent2 = new Intent(this, MapsActivity.class);
-                startActivity(intent2);
+                //sacar esta opcion del menu
                 activityMainDrawerLayout.closeDrawers();
                 break;
             case R.id.navigationMenuAboutUs:

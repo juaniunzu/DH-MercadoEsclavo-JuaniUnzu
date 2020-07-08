@@ -3,6 +3,7 @@ package com.example.dh_mercadoesclavo.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,9 @@ import com.example.dh_mercadoesclavo.databinding.FragmentDetailIndividualBinding
 import com.example.dh_mercadoesclavo.model.Articulo;
 import com.example.dh_mercadoesclavo.model.Pic;
 import com.example.dh_mercadoesclavo.util.ResultListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +63,6 @@ public class DetailIndividualFragment extends Fragment {
             @Override
             public void onFinish(final Articulo result) {
 
-                Glide.with(getActivity()).load(result.getPictures().get(0).getUrl()).into(binding.fragmentDetailIndividualImageView);
                 binding.fragmentDetailIndividualTextViewNombre.setText(result.getTitle());
                 binding.fragmentDetailIndividualTextViewPrecio.setText(String.format(getContext().getResources().getString(R.string.valor), result.getPrice().toString()));
                 binding.fragmentDetailIndividualTextViewDescripcion.setText(result.getDescripcion());
@@ -80,7 +83,28 @@ public class DetailIndividualFragment extends Fragment {
             }
         });
 
+        List<String> urlImagenes = new ArrayList<>();
+        for (int i = 0; i < articulo.getPictures().size(); i++) {
+            String url = articulo.getPictures().get(i).getUrl();
+            urlImagenes.add(url);
+        }
+
+        List<ImagenFragment> listaFragments = generarImageFragments(urlImagenes);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), listaFragments);
+        ViewPager viewPager = view.findViewById(R.id.fragmentDetailViewPager);
+        viewPager.setAdapter(viewPagerAdapter);
+
         return view;
+    }
+
+    public List<ImagenFragment> generarImageFragments(List<String> url){
+        List<ImagenFragment> lista = new ArrayList<>();
+        for (String s : url) {
+            ImagenFragment imagenFragment = ImagenFragment.crearImagenFragment(s);
+            lista.add(imagenFragment);
+        }
+        return lista;
     }
 
     public interface DetailIndividualFragmentListener{

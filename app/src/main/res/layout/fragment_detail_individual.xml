@@ -14,11 +14,10 @@
         android:orientation="vertical"
         tools:context=".view.DetailFragment">
 
-        <ImageView
-            android:id="@+id/fragmentDetailIndividualImageView"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/fragmentDetailViewPager"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/fragmentDetailIndividualImageView" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentDetailViewPager" />
 
         <TextView
             android:id="@+id/fragmentDetailIndividualTextViewPrecio"
